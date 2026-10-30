@@ -65,7 +65,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:5
 .dark .card p{color:#a5a5ae}
 
 /* safety */
-.safety{background:#fff4f2;border:1px solid #ffd3cb;border-radius:var(--r);padding:28px;display:grid;grid-template-columns:1.1fr 1fr;gap:28px}
+.safety{background:#fff4f2;border:1px solid #ffd3cb;border-radius:var(--r);padding:28px;max-width:640px}
 .safety h3{margin-bottom:10px;font-size:21px}
 .safety li{margin:7px 0 7px 18px;font-size:15px}
 .low{background:#fff;border-radius:18px;padding:20px;border:1px solid #ffd3cb}
@@ -110,6 +110,26 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:5
 .ex{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:13px 0;border-top:1px solid #26262a}
 .ex b{font-weight:600}.ex span{color:var(--c);font-weight:600;font-size:14px;text-align:right}.ex em{grid-column:1/-1;color:#8b8b95;font-style:normal;font-size:13.5px}
 
+/* videos */
+.vl{color:#fff;font-weight:600;text-align:left;border-bottom:1px dashed #5a5a63;padding:0}
+.vl::before{content:"▶";color:var(--c);font-size:11px;margin-right:8px}
+.vl:hover{color:var(--c)}
+.guide{margin-top:34px}
+.guide h3{font-size:22px;letter-spacing:-.02em;margin-bottom:4px}
+.guide>p{color:#8b8b95;font-size:14px;margin-bottom:14px}
+.vgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.vbtn{background:#141416;border:1px solid #26262a;border-radius:14px;padding:13px 14px;font-size:14px;font-weight:500;color:#fff}
+.vbtn::before{content:"▶ ";color:var(--c);font-size:11px}
+.vbtn:hover{border-color:var(--c)}
+#vm{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:20px}
+#vm.on{display:flex}
+#vm .box{width:min(860px,100%)}
+#vm .bar{display:flex;justify-content:space-between;align-items:center;color:#fff;margin-bottom:10px;gap:16px}
+#vm .bar b{font-size:18px}
+#vm .bar button{color:#fff;font-size:26px;line-height:1;padding:4px 10px}
+#vm .frame{aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden}
+#vm iframe{width:100%;height:100%;border:0;display:block}
+#vm a{display:inline-block;margin-top:10px;color:#a5a5ae;font-size:13.5px}
 /* do/dont */
 .dd{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .dd .card.do{border-top:4px solid var(--ok)}.dd .card.dont{border-top:4px solid var(--warn)}
@@ -133,6 +153,7 @@ footer b{display:block;font:400 34px "Instrument Serif",serif;color:var(--ink);m
   .g3,.meals,.dd,.safety,.plate{grid-template-columns:1fr}
   .total .msg{margin-left:0;max-width:none}
   .pie{width:200px}
+  .vgrid{grid-template-columns:repeat(2,1fr)}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#hello span{opacity:1;transform:none;filter:none}}
 </style>
@@ -152,6 +173,8 @@ footer b{display:block;font:400 34px "Instrument Serif",serif;color:var(--ink);m
 </div></nav>
 
 <div id="app"></div>
+
+<div id="vm"><div class="box"><div class="bar"><b id="vmT"></b><button id="vmX" aria-label="Close">×</button></div><div class="frame" id="vmF"></div><a id="vmL" target="_blank" rel="noopener"></a></div></div>
 
 <script>
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -176,9 +199,7 @@ const C={
   pace:L('Vise environ 1 à 1,5 kg par semaine. Plus vite n\'est pas mieux : hypoglycémies, perte de muscle, peau relâchée. Pèse-toi une fois par semaine, le matin.','Aim for about 1–1.5 kg a week. Faster isn\'t better: lows, muscle loss, loose skin. Weigh yourself once a week, in the morning.')
  },
  safety:{
-  k:L('Diabète d\'abord','Diabetes first'),h:L('La sécurité <em>avant la vitesse.</em>','Safety <em>before speed.</em>'),
-  list:L(['<b>Parle de ce plan à ton médecin.</b> En perdant du poids, ton traitement peut devoir changer. Ne modifie jamais une dose toute seule.','<b>Mesure ta glycémie</b> avant et après chaque séance.','<b>Pour démarrer :</b> entre 1,00 et 2,50 g/L. En dessous de 1,00, mange d\'abord 15 g de glucides. Au-dessus de 2,50 avec symptômes ou cétones, pas de sport.','<b>Ne saute jamais de repas.</b>','Garde du sucre rapide et ton téléphone sur toi.'],
-         ['<b>Tell your doctor about this plan.</b> As you lose weight, your treatment may need to change. Never adjust a dose on your own.','<b>Check your glucose</b> before and after every workout.','<b>To start:</b> between 100 and 250 mg/dL. Under 100, eat 15 g of carbs first. Over 250 with symptoms or ketones, no exercise.','<b>Never skip meals.</b>','Carry fast sugar and your phone.']),
+  k:L('Diabète','Diabetes'),h:L('Si tu fais <em>une hypo.</em>','If you go <em>low.</em>'),
   lowH:L('En cas d\'hypoglycémie','If you feel low'),
   low:L(['Arrête et assieds-toi.','Prends <b>15 g de sucre rapide</b> (3–4 comprimés de glucose ou ½ verre de jus).','Attends <b>15 min</b> et recontrôle.','Toujours sous 0,70 g/L ? Recommence.','Une fois remontée, mange une collation avec des protéines.'],
         ['Stop and sit down.','Take <b>15 g fast sugar</b> (3–4 glucose tablets or ½ cup juice).','Wait <b>15 min</b> and recheck.','Still under 70 mg/dL? Repeat.','Once back up, eat a snack with protein.']),
@@ -286,6 +307,27 @@ const C={
  foot:{b:L('Tu vas y arriver, Oumaima.','You\'ve got this, Oumaima.'),s:L('Guide général, pas un avis médical. Garde ton médecin dans la boucle.','General guidance, not medical advice. Keep your doctor in the loop.')}
 };
 
+/* ================= VIDEOS (keyed by English exercise name) ================= */
+const VIDEOS={
+ 'Goblet squat':['nfX7IFK9UNI',L('Squat gobelet','Goblet squat')],
+ 'Leg press':['cDGOn-yfKJA',L('Presse à cuisses','Leg press')],
+ 'Romanian deadlift':['hQgFixeXdZo',L('Soulevé de terre roumain','Romanian deadlift')],
+ 'Glute bridge':['KI6fjDqGZh4',L('Pont fessier','Glute bridge')],
+ 'Plank':['HaH4JvdBCfE',L('Gainage','Plank')],
+ 'Incline walk':['Ii71nAaRc_8',L('Marche inclinée','Incline walk')],
+ 'Lat pulldown':['SALxEARiMkw',L('Tirage vertical','Lat pulldown')],
+ 'Cable row':['EU7bOadUsNI',L('Rowing à la poulie','Cable row')],
+ 'Chest press':['B-zyH8OTlsg',L('Développé poitrine','Chest press')],
+ 'Shoulder press':['guW_ENwLOMI',L('Développé épaules','Shoulder press')],
+ 'Dead bug':['bxn9FBrt4-A',L('Dead bug','Dead bug')],
+ 'Intervals':['ml-I1HcHqaA',L('Intervalles (vélo)','Intervals (bike)')],
+ 'Step-ups':['aKj-6hgiViA',L('Montées sur banc','Step-ups')],
+ 'Incline press':['awEEyL5zGvU',L('Développé incliné','Incline press')],
+ 'One-arm row':['vbechsUCn24',L('Rowing un bras','One-arm row')],
+ 'Lateral raise':['Y29xKcze8Ik',L('Élévations latérales','Lateral raise')]
+};
+const GUIDE={h:L('Guide des exercices','Exercise guide'),p:L('Clique sur un exercice pour voir comment il se fait.','Click an exercise to see how it\'s done.'),yt:L('Ouvrir sur YouTube','Open on YouTube'),close:L('Fermer','Close')};
+
 /* ================= STATE ================= */
 const sel={b:null,s:[],l:null,d:null};
 let tab='b', dayIdx=Math.max(0,(new Date().getDay()+6)%7);
@@ -305,8 +347,7 @@ function render(){
     <p class="mini" style="margin-top:18px;max-width:640px">${t(P.pace)}</p></div></section>
 
   <section style="padding-top:0"><div class="wrap">${head(S)}
-    <div class="safety"><div><ul>${t(S.list).map(x=>`<li>${x}</li>`).join('')}</ul></div>
-    <div class="low"><h3>${t(S.lowH)}</h3><ol>${t(S.low).map(x=>`<li>${x}</li>`).join('')}</ol><p class="mini" style="margin-top:12px">${t(S.alert)}</p></div></div></div></section>
+    <div class="safety"><div class="low"><h3>${t(S.lowH)}</h3><ol>${t(S.low).map(x=>`<li>${x}</li>`).join('')}</ol><p class="mini" style="margin-top:12px">${t(S.alert)}</p></div></div></div></section>
 
   <section class="dark"><div class="wrap">${head(E,1)}
     <div class="plate"><div class="pie"></div><div class="legend">${E.plate.map(p=>`<div><i style="background:${p[0]}"></i><p><b>${t(p[1])}</b><span>${t(p[2])}</span></p></div>`).join('')}</div></div>
@@ -322,6 +363,7 @@ function render(){
     <div class="grid g3" style="margin-bottom:28px">${T.phases.map(p=>`<div class="card"><h3>${t(p[0])}</h3><p>${t(p[1])}</p></div>`).join('')}</div>
     <div class="days">${T.days.map((d,i)=>`<button class="day ${i===dayIdx?'on':''}" data-day="${i}">${t(d.d)}<small>${t(d.s)}</small></button>`).join('')}</div>
     <div class="panel" id="day"></div>
+    <div class="guide"><h3>${t(GUIDE.h)}</h3><p>${t(GUIDE.p)}</p><div class="vgrid">${Object.keys(VIDEOS).map(k=>`<button class="vbtn" data-v="${k}">${t(VIDEOS[k][1])}</button>`).join('')}</div></div>
     <p class="mini" style="margin-top:18px;color:#8b8b95">${t(T.tip)}</p></div></section>
 
   <section><div class="wrap">${head(R)}
@@ -340,6 +382,7 @@ function render(){
   $('#wAdd').onclick=()=>{const v=parseFloat($('#wIn').value);if(!(v>30&&v<200))return;const w=store.get('weights',[]);w.push(v);store.set('weights',w);$('#wIn').value='';drawChart()};
   $('#wClear').onclick=()=>{if(confirm(t(K.confirm))){store.set('weights',[]);drawChart()}};
   renderMeals();renderDay();drawChart();
+  $$('.vbtn').forEach(b=>b.onclick=()=>openVideo(b.dataset.v));
 }
 
 function isSel(k,i){return k==='s'?sel.s.includes(i):sel[k]===i}
@@ -360,8 +403,17 @@ function total(){
 }
 function renderDay(){
   const d=C.train.days[dayIdx];
-  $('#day').innerHTML=`<h3>${t(d.n)}</h3><p>${t(C.train.warm)}</p>`+d.x.map(x=>`<div class="ex"><b>${t(x[0])}</b><span>${typeof x[1]==='string'?x[1]:t(x[1])}</span><em>${t(x[2])}</em></div>`).join('');
+  $('#day').innerHTML=`<h3>${t(d.n)}</h3><p>${t(C.train.warm)} ${t(GUIDE.p)}</p>`+d.x.map(x=>`<div class="ex"><b>${VIDEOS[x[0].en]?`<button class="vl" data-v="${x[0].en}">${t(x[0])}</button>`:t(x[0])}</b><span>${typeof x[1]==='string'?x[1]:t(x[1])}</span><em>${t(x[2])}</em></div>`).join('');
+  $$('#day .vl').forEach(b=>b.onclick=()=>openVideo(b.dataset.v));
 }
+function openVideo(k){
+  const v=VIDEOS[k];if(!v)return;
+  $('#vmT').textContent=t(v[1]);
+  $('#vmF').innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${v[0]}?rel=0&modestbranding=1" title="${t(v[1])}" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+  $('#vmL').href='https://www.youtube.com/watch?v='+v[0];$('#vmL').textContent=t(GUIDE.yt)+' ↗';
+  $('#vm').classList.add('on');
+}
+function closeVideo(){$('#vm').classList.remove('on');$('#vmF').innerHTML=''}
 function drawChart(){
   const w=store.get('weights',[]),svg=$('#chart');
   const pts=[{x:0,y:START},...w.map((v,i)=>({x:i+1,y:v}))];
@@ -379,6 +431,9 @@ function drawChart(){
 }
 
 $$('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;store.set('lang',lang);render()});
+$('#vmX').onclick=closeVideo;
+$('#vm').onclick=e=>{if(e.target.id==='vm')closeVideo()};
+addEventListener('keydown',e=>{if(e.key==='Escape')closeVideo()});
 render();
 
 /* ================= INTRO ================= */
