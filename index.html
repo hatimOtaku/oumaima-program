@@ -46,6 +46,12 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:5
 .lang button{padding:6px 12px;font-size:14px;color:var(--muted);border-radius:99px}
 .lang button.on{background:var(--ink);color:#fff}
 
+/* nav links */
+.links{display:flex;gap:2px;flex:1;justify-content:center;overflow-x:auto;scrollbar-width:none;margin:0 10px}
+.links::-webkit-scrollbar{display:none}
+.links a{padding:7px 12px;font-size:14px;color:var(--muted);text-decoration:none;border-radius:99px;white-space:nowrap}
+.links a:hover,.links a.on{background:#efede8;color:var(--ink)}
+section[id]{scroll-margin-top:58px}
 /* hero */
 .hero{padding:80px 0 20px;text-align:center}
 .orb{width:min(300px,64vw);aspect-ratio:1;margin:0 auto 34px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,transparent 40%),conic-gradient(from 90deg,var(--a),var(--b),var(--c),var(--a));box-shadow:0 40px 100px -20px rgba(166,107,255,.55),inset 0 -20px 60px rgba(0,0,0,.12);animation:float 7s ease-in-out infinite}
@@ -153,6 +159,8 @@ footer b{display:block;font:400 34px "Instrument Serif",serif;color:var(--ink);m
   .g3,.meals,.dd,.safety,.plate{grid-template-columns:1fr}
   .total .msg{margin-left:0;max-width:none}
   .pie{width:200px}
+  .logo span{display:none}
+  .links a{padding:7px 9px;font-size:13px}
   .vgrid{grid-template-columns:repeat(2,1fr)}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#hello span{opacity:1;transform:none;filter:none}}
@@ -168,7 +176,8 @@ footer b{display:block;font:400 34px "Instrument Serif",serif;color:var(--ink);m
 </div>
 
 <nav><div class="wrap">
-  <div class="logo"><b></b> Oumaima</div>
+  <div class="logo"><b></b> <span>Oumaima</span></div>
+  <div class="links" id="links"></div>
   <div class="lang"><button data-l="fr">FR</button><button data-l="en">EN</button></div>
 </div></nav>
 
@@ -328,6 +337,8 @@ const VIDEOS={
 };
 const GUIDE={h:L('Guide des exercices','Exercise guide'),p:L('Clique sur un exercice pour voir comment il se fait.','Click an exercise to see how it\'s done.'),yt:L('Ouvrir sur YouTube','Open on YouTube'),close:L('Fermer','Close')};
 
+const NAV=[['plan',L('Plan','Plan')],['low',L('Hypo','Low')],['eat',L('Manger','Eating')],['meals-s',L('Repas','Meals')],['train',L('Sport','Training')],['rules',L('Règles','Rules')],['track',L('Suivi','Tracking')]];
+
 /* ================= STATE ================= */
 const sel={b:null,s:[],l:null,d:null};
 let tab='b', dayIdx=Math.max(0,(new Date().getDay()+6)%7);
@@ -342,35 +353,35 @@ function render(){
   $('#app').innerHTML=`
   <header class="hero"><div class="wrap"><div class="orb"></div><h1>${t(C.hero.h)}</h1><p>${t(C.hero.p)}</p></div></header>
 
-  <section><div class="wrap">${head(P,1)}
+  <section id="plan"><div class="wrap">${head(P,1)}
     <div class="grid g3">${P.cards.map(c=>`<div class="card"><h3>${t(c[0])}</h3><p>${t(c[1])}</p></div>`).join('')}</div>
     <p class="mini" style="margin-top:18px;max-width:640px">${t(P.pace)}</p></div></section>
 
-  <section style="padding-top:0"><div class="wrap">${head(S)}
+  <section id="low" style="padding-top:0"><div class="wrap">${head(S)}
     <div class="safety"><div class="low"><h3>${t(S.lowH)}</h3><ol>${t(S.low).map(x=>`<li>${x}</li>`).join('')}</ol><p class="mini" style="margin-top:12px">${t(S.alert)}</p></div></div></div></section>
 
-  <section class="dark"><div class="wrap">${head(E,1)}
+  <section class="dark" id="eat"><div class="wrap">${head(E,1)}
     <div class="plate"><div class="pie"></div><div class="legend">${E.plate.map(p=>`<div><i style="background:${p[0]}"></i><p><b>${t(p[1])}</b><span>${t(p[2])}</span></p></div>`).join('')}</div></div>
     <div class="macros">${E.macros.map(m=>`<div class="macro"><b>${m[0]}</b><span>${t(m[1])}</span></div>`).join('')}</div>
     <p class="mini" style="margin-top:22px;color:#a5a5ae">${t(E.note)}</p></div></section>
 
-  <section><div class="wrap">${head(M,1)}
+  <section id="meals-s"><div class="wrap">${head(M,1)}
     <div class="chips">${Object.keys(M.cats).map(k=>`<button class="chip ${k===tab?'on':''}" data-tab="${k}">${t(M.cats[k])}</button>`).join('')}</div>
     <div class="meals" id="meals"></div>
     <div class="total"><div>kcal<b id="tK">0</b></div><div>${lang==='fr'?'Protéines':'Protein'}<b id="tP">0 g</b></div><div>${lang==='fr'?'Glucides':'Carbs'}<b id="tC">0 g</b></div><div class="msg" id="tM"></div></div></div></section>
 
-  <section class="dark"><div class="wrap">${head(T,1)}
+  <section class="dark" id="train"><div class="wrap">${head(T,1)}
     <div class="grid g3" style="margin-bottom:28px">${T.phases.map(p=>`<div class="card"><h3>${t(p[0])}</h3><p>${t(p[1])}</p></div>`).join('')}</div>
     <div class="days">${T.days.map((d,i)=>`<button class="day ${i===dayIdx?'on':''}" data-day="${i}">${t(d.d)}<small>${t(d.s)}</small></button>`).join('')}</div>
     <div class="panel" id="day"></div>
     <div class="guide"><h3>${t(GUIDE.h)}</h3><p>${t(GUIDE.p)}</p><div class="vgrid">${Object.keys(VIDEOS).map(k=>`<button class="vbtn" data-v="${k}">${t(VIDEOS[k][1])}</button>`).join('')}</div></div>
     <p class="mini" style="margin-top:18px;color:#8b8b95">${t(T.tip)}</p></div></section>
 
-  <section><div class="wrap">${head(R)}
+  <section id="rules"><div class="wrap">${head(R)}
     <div class="dd"><div class="card do"><h3>${t(R.yh)}</h3><ul>${t(R.yes).map(x=>`<li>${x}</li>`).join('')}</ul></div>
     <div class="card dont"><h3>${t(R.nh)}</h3><ul>${t(R.no).map(x=>`<li>${x}</li>`).join('')}</ul></div></div></div></section>
 
-  <section style="background:#f3f1ec"><div class="wrap">${head(K,1)}
+  <section id="track" style="background:#f3f1ec"><div class="wrap">${head(K,1)}
     <div class="card"><div class="row"><input id="wIn" type="number" step="0.1" placeholder="80.4"><button class="btn" id="wAdd">${t(K.add)}</button></div>
     <svg class="chart" id="chart" viewBox="0 0 500 200" preserveAspectRatio="none"></svg>
     <p class="mini" id="wInfo"></p><button class="chip" id="wClear" style="margin-top:10px">${t(K.reset)}</button></div></div></section>
@@ -383,6 +394,8 @@ function render(){
   $('#wClear').onclick=()=>{if(confirm(t(K.confirm))){store.set('weights',[]);drawChart()}};
   renderMeals();renderDay();drawChart();
   $$('.vbtn').forEach(b=>b.onclick=()=>openVideo(b.dataset.v));
+  $('#links').innerHTML=NAV.map(n=>`<a href="#${n[0]}">${t(n[1])}</a>`).join('');
+  spy();
 }
 
 function isSel(k,i){return k==='s'?sel.s.includes(i):sel[k]===i}
@@ -406,6 +419,12 @@ function renderDay(){
   $('#day').innerHTML=`<h3>${t(d.n)}</h3><p>${t(C.train.warm)} ${t(GUIDE.p)}</p>`+d.x.map(x=>`<div class="ex"><b>${VIDEOS[x[0].en]?`<button class="vl" data-v="${x[0].en}">${t(x[0])}</button>`:t(x[0])}</b><span>${typeof x[1]==='string'?x[1]:t(x[1])}</span><em>${t(x[2])}</em></div>`).join('');
   $$('#day .vl').forEach(b=>b.onclick=()=>openVideo(b.dataset.v));
 }
+function spy(){
+  const y=scrollY+120;let cur='';
+  NAV.forEach(n=>{const e=document.getElementById(n[0]);if(e&&e.offsetTop<=y)cur=n[0]});
+  $$('#links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));
+}
+addEventListener('scroll',spy,{passive:true});
 function openVideo(k){
   const v=VIDEOS[k];if(!v)return;
   $('#vmT').textContent=t(v[1]);
