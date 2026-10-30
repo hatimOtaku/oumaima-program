@@ -1,560 +1,428 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Oumaima · Your 12-Week Program</title>
-<meta name="description" content="Personal workout and flexible diet program for Oumaima.">
+<title>Oumaima · Programme 12 semaines</title>
+<meta name="description" content="Programme sport et alimentation pour Oumaima.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#fafaf8; --ink:#0b0b0c; --muted:#6b6b72; --line:#e8e6e1; --card:#ffffff;
-  --a:#ff7a59; --b:#a66bff; --c:#3dd6c6; --dark:#0b0b0c; --ok:#18a367; --warn:#e5484d;
-  --r:22px;
-}
+:root{--paper:#f3eee4;--ink:#1c1a17;--mute:#6f685d;--line:#d9d2c3;--acc:#b8412a;--ok:#2f6b4f}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400}
-a{color:inherit}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-section{padding:96px 0}
-h2{font-size:clamp(34px,5vw,56px);line-height:1.05;letter-spacing:-.02em;margin-bottom:14px}
-h2 em{font-family:"Instrument Serif",serif;font-weight:400}
-.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.kicker::before{content:"";width:22px;height:2px;background:linear-gradient(90deg,var(--a),var(--b))}
-.lead{color:var(--muted);font-size:18px;max-width:640px;margin-bottom:44px}
+body{font:17px/1.6 Inter,system-ui,sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+.serif,h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:400;letter-spacing:-.01em}
+.col{max-width:760px;margin:0 auto;padding:0 22px}
 
-/* ---------- Intro overlay ---------- */
-#intro{position:fixed;inset:0;z-index:100;background:#050506;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .9s ease,visibility .9s;color:#fff;overflow:hidden}
+/* intro */
+#intro{position:fixed;inset:0;z-index:100;background:#0b0b0b;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
 #intro.done{opacity:0;visibility:hidden}
-#intro .glow{position:absolute;width:70vmin;height:70vmin;border-radius:50%;background:conic-gradient(from 0deg,var(--a),var(--b),var(--c),var(--a));filter:blur(90px);opacity:.35;animation:spin 9s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.wave{position:relative;display:flex;align-items:center;gap:5px;height:120px;margin-bottom:34px}
-.wave i{display:block;width:5px;border-radius:5px;background:linear-gradient(#fff,#cfc3ff);height:8px;animation:bar 1.2s ease-in-out infinite}
-@keyframes bar{0%,100%{height:8px;opacity:.5}50%{height:var(--h);opacity:1}}
-#hello{position:relative;font-size:clamp(44px,9vw,104px);letter-spacing:-.03em;line-height:1;text-align:center;padding:0 16px}
-#hello span{display:inline-block;opacity:0;transform:translateY(24px);filter:blur(10px);animation:in .8s cubic-bezier(.2,.8,.2,1) forwards}
-#hello .name{font-family:"Instrument Serif",serif;font-style:italic;background:linear-gradient(90deg,#ffb199,#c9a7ff,#8ff0e4);-webkit-background-clip:text;background-clip:text;color:transparent}
-@keyframes in{to{opacity:1;transform:none;filter:none}}
-#intro p{position:relative;margin-top:22px;color:#9a9aa3;opacity:0;animation:in 1s 2.1s forwards;font-size:15px}
-#skip{position:absolute;bottom:28px;background:none;border:1px solid #333;color:#aaa;border-radius:99px;padding:8px 18px;font:500 13px Inter;cursor:pointer}
-#skip:hover{color:#fff;border-color:#777}
+#wave{display:flex;align-items:center;gap:4px;height:90px;margin-bottom:30px}
+#wave i{width:3px;border-radius:3px;background:#fff;height:6px;animation:bar 1.1s ease-in-out infinite}
+@keyframes bar{0%,100%{height:6px;opacity:.35}50%{height:var(--h);opacity:1}}
+#hello{font-size:clamp(46px,10vw,110px);line-height:1;text-align:center;font-family:Fraunces,serif;font-weight:400;letter-spacing:-.03em;padding:0 16px}
+#hello span{display:inline-block;opacity:0;transform:translateY(14px);animation:in .7s forwards}
+#hello .nm{font-style:italic}
+@keyframes in{to{opacity:1;transform:none}}
+#skip{position:absolute;bottom:26px;color:#8a8a8a;font-size:14px;border-bottom:1px solid #444}
+#skip:hover{color:#fff}
 
-/* ---------- Nav ---------- */
-nav{position:sticky;top:0;z-index:50;background:rgba(250,250,248,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
-.logo b{width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--a),var(--b),var(--c),var(--a))}
-nav ul{display:flex;gap:4px;list-style:none;overflow-x:auto}
-nav a{display:block;text-decoration:none;font-size:14px;color:var(--muted);padding:8px 12px;border-radius:99px;white-space:nowrap}
-nav a:hover{background:#efede8;color:var(--ink)}
+/* top bar */
+.top{border-bottom:1px solid var(--line)}
+.top .col{display:flex;justify-content:space-between;align-items:center;height:56px}
+.top b{font-family:Fraunces,serif;font-weight:600;font-size:18px}
+.lang button{padding:4px 8px;font-size:14px;color:var(--mute)}
+.lang button.on{color:var(--ink);border-bottom:2px solid var(--acc)}
 
-/* ---------- Hero ---------- */
-.hero{padding:90px 0 70px;position:relative;text-align:center}
-.orb{width:min(360px,70vw);aspect-ratio:1;margin:0 auto 36px;border-radius:50%;position:relative;background:radial-gradient(circle at 30% 30%,#fff,transparent 40%),conic-gradient(from 90deg,var(--a),var(--b),var(--c),var(--a));box-shadow:0 40px 100px -20px rgba(166,107,255,.55),inset 0 -20px 60px rgba(0,0,0,.12);animation:float 7s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-14px) scale(1.02)}}
-.hero h1{font-size:clamp(40px,7vw,84px);letter-spacing:-.035em;line-height:1;margin-bottom:20px}
-.hero h1 em{font-family:"Instrument Serif",serif;font-weight:400}
-.hero p{color:var(--muted);font-size:19px;max-width:560px;margin:0 auto 32px}
-.btn{display:inline-block;text-decoration:none;background:var(--ink);color:#fff;padding:14px 26px;border-radius:99px;font-weight:600;font-size:15px;transition:transform .2s}
-.btn:hover{transform:translateY(-2px)}
-.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);margin-left:8px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:70px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px 18px}
-.stat b{display:block;font-size:34px;letter-spacing:-.03em}
-.stat span{color:var(--muted);font-size:13px}
+/* content */
+.hero{padding:70px 0 40px}
+.hero h1{font-size:clamp(40px,8vw,68px);line-height:1.04;margin-bottom:22px}
+.hero h1 em{color:var(--acc)}
+.hero p{font-size:19px;color:var(--mute);max-width:560px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:30px;padding-top:20px;border-top:1px solid var(--line);font-size:15px}
+.facts b{font-weight:600}
+section{padding:56px 0 8px;border-top:1px solid var(--line);margin-top:48px}
+h2{font-size:clamp(28px,5vw,38px);line-height:1.1;margin-bottom:18px}
+h2 .n{display:block;font:500 13px Inter;letter-spacing:.14em;color:var(--acc);margin-bottom:10px}
+h3{font-size:21px;margin:26px 0 8px}
+p{margin-bottom:14px}.mute{color:var(--mute)}.small{font-size:14.5px}
+ul.pl{list-style:none}
+ul.pl li{padding:9px 0 9px 22px;position:relative;border-bottom:1px solid var(--line)}
+ul.pl li::before{content:"–";position:absolute;left:0;color:var(--acc)}
+.note{border-left:3px solid var(--acc);padding:4px 0 4px 18px;margin:22px 0}
+.low{background:#e9e1d0;padding:20px 22px;margin:22px 0}
+.low ol{margin-left:20px}.low li{margin:5px 0}
+dl{margin:10px 0}
+dl div{display:flex;justify-content:space-between;gap:20px;padding:10px 0;border-bottom:1px solid var(--line)}
+dt{color:var(--mute)}dd{font-weight:600;text-align:right}
 
-/* ---------- Cards / grids ---------- */
-.grid{display:grid;gap:16px}
-.g3{grid-template-columns:repeat(3,1fr)}
-.g2{grid-template-columns:repeat(2,1fr)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px}
-.card h3{font-size:19px;letter-spacing:-.01em;margin-bottom:8px}
-.card p,.card li{color:var(--muted);font-size:15px}
-.card ul{padding-left:18px}
-.ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,#ffe3da,#e6d8ff);margin-bottom:16px}
-.dark{background:var(--dark);color:#fff}
-.dark .lead,.dark .kicker{color:#9a9aa3}
-.dark .card{background:#141416;border-color:#26262a}
-.dark .card p,.dark .card li{color:#a5a5ae}
+/* meals */
+.tabs{display:flex;flex-wrap:wrap;gap:4px 20px;margin:14px 0 4px;border-bottom:1px solid var(--line)}
+.tabs button{padding:8px 0;color:var(--mute);border-bottom:2px solid transparent;margin-bottom:-1px;font-weight:500}
+.tabs button.on{color:var(--ink);border-color:var(--acc)}
+.meal{display:grid;grid-template-columns:22px 1fr auto;gap:0 14px;width:100%;padding:14px 0;border-bottom:1px solid var(--line)}
+.meal i{width:18px;height:18px;border:1.5px solid var(--ink);margin-top:4px}
+.meal.sel i{background:var(--acc);border-color:var(--acc)}
+.meal b{font-weight:600}.meal span{display:block;color:var(--mute);font-size:14.5px}
+.meal em{font-style:normal;font-size:13.5px;color:var(--mute);text-align:right;white-space:nowrap}
+.total{position:sticky;bottom:0;background:var(--ink);color:var(--paper);padding:14px 20px;margin-top:18px;display:flex;flex-wrap:wrap;gap:6px 26px;align-items:baseline;font-size:15px}
+.total b{font-size:20px;font-family:Fraunces,serif;font-weight:600}
+.total .m{width:100%;font-size:14px;color:#cfc8b8}
 
-/* ---------- Safety ---------- */
-.safety{background:#fff4f2;border:1px solid #ffd3cb;border-radius:var(--r);padding:28px;display:grid;grid-template-columns:1.1fr 1fr;gap:28px}
-.safety h3{margin-bottom:10px;font-size:22px}
-.safety li{margin:6px 0 6px 18px;font-size:15px}
-.rule15{background:#fff;border-radius:18px;padding:20px;border:1px solid #ffd3cb}
-.rule15 ol{margin-left:18px;font-size:15px}.rule15 li{margin:6px 0}
+/* training */
+.phase{display:grid;grid-template-columns:110px 1fr;gap:4px 16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.phase>b{color:var(--acc);font-weight:600}
+.days{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 0}
+.days button{padding:8px 14px;border:1px solid var(--line);font-size:15px;font-weight:500}
+.days button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.ex{display:grid;grid-template-columns:1fr auto;gap:2px 18px;padding:12px 0;border-bottom:1px solid var(--line)}
+.ex b{font-weight:600}.ex span{color:var(--acc);font-weight:600;font-size:15px;text-align:right}.ex em{grid-column:1/-1;font-style:normal;color:var(--mute);font-size:14.5px}
 
-/* ---------- Plate ---------- */
-.plate{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:center}
-.pie{width:300px;aspect-ratio:1;border-radius:50%;background:conic-gradient(#3dd6c6 0 50%,#ff7a59 50% 75%,#a66bff 75% 100%);position:relative;margin:auto;box-shadow:0 30px 60px -20px rgba(0,0,0,.3)}
-.pie::after{content:"";position:absolute;inset:34%;background:var(--bg);border-radius:50%}
-.legend div{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line)}
-.legend i{width:14px;height:14px;border-radius:50%;margin-top:5px;flex:none}
-.legend b{display:block}.legend span{color:var(--muted);font-size:14px}
-.macros{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:36px 0}
-.macro{background:var(--ink);color:#fff;border-radius:var(--r);padding:22px}
-.macro b{font-size:28px;letter-spacing:-.02em;display:block}.macro span{font-size:13px;color:#a5a5ae}
+/* do/dont */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.two h3{margin-top:0}
+.yes li::before{content:"✓"!important;color:var(--ok)!important}.no li::before{content:"✕"!important;color:var(--acc)!important}
 
-/* ---------- Day builder ---------- */
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:9px 16px;font:500 14px Inter;cursor:pointer;color:var(--ink)}
-.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.meals{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.meal{background:#fff;border:2px solid var(--line);border-radius:18px;padding:20px;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:.2s}
-.meal:hover{transform:translateY(-3px);box-shadow:0 14px 30px -14px rgba(0,0,0,.2)}
-.meal.sel{border-color:var(--b);background:linear-gradient(#fff,#f6f0ff)}
-.meal h4{font-size:16px;margin-bottom:6px}
-.meal p{font-size:13.5px;color:var(--muted);margin-bottom:12px}
-.tags{display:flex;gap:6px;flex-wrap:wrap}
-.tags span{font-size:12px;font-weight:600;background:#f1efea;border-radius:99px;padding:3px 10px}
-.tags .k{background:#ffe9e2}.tags .p{background:#e1f7f3}
-.total{position:sticky;bottom:14px;margin-top:24px;background:var(--ink);color:#fff;border-radius:20px;padding:18px 24px;display:flex;gap:26px;align-items:center;flex-wrap:wrap;box-shadow:0 20px 40px -10px rgba(0,0,0,.4)}
-.total div{font-size:13px;color:#a5a5ae}.total b{display:block;font-size:24px;color:#fff;letter-spacing:-.02em}
-.total .msg{margin-left:auto;font-size:14px;max-width:260px}
-.free{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.free span{background:#e1f7f3;border-radius:99px;padding:6px 14px;font-size:14px}
-
-/* ---------- Training ---------- */
-.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:34px}
-.phase{border-radius:var(--r);padding:24px;background:#141416;border:1px solid #26262a}
-.phase small{color:var(--c);font-weight:600;letter-spacing:.1em;font-size:12px}
-.phase h3{font-size:22px;margin:6px 0 8px}
-.phase p{font-size:14.5px;color:#a5a5ae}
-.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:18px}
-.day{flex:1 0 auto;min-width:92px;background:#141416;border:1px solid #26262a;color:#fff;border-radius:16px;padding:12px 16px;cursor:pointer;font:600 14px Inter;text-align:left}
-.day small{display:block;font-weight:400;color:#8b8b95;font-size:12px}
-.day.on{background:#fff;color:var(--ink)}.day.on small{color:var(--muted)}
-.panel{background:#141416;border:1px solid #26262a;border-radius:var(--r);padding:28px}
-.panel h3{font-size:26px;letter-spacing:-.02em;margin-bottom:4px}
-.panel>p{color:#a5a5ae;margin-bottom:18px}
-.ex{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:14px 0;border-top:1px solid #26262a}
-.ex b{font-weight:600}.ex span{color:var(--c);font-weight:600;font-size:14px;text-align:right}.ex em{grid-column:1/-1;color:#8b8b95;font-style:normal;font-size:13.5px}
-.why{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-
-/* ---------- Do / Don't ---------- */
-.dd{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.dd .card.do{border-top:4px solid var(--ok)}.dd .card.dont{border-top:4px solid var(--warn)}
-.dd li{list-style:none;padding:10px 0 10px 30px;position:relative;border-bottom:1px solid var(--line);color:var(--ink);font-size:15px}
-.dd ul{padding:0}.dd li:last-child{border:0}
-.do li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:700}
-.dont li::before{content:"✕";position:absolute;left:0;color:var(--warn);font-weight:700}
-
-/* ---------- Tracker ---------- */
-.trk{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
-.trk input{font:inherit;padding:11px 14px;border-radius:12px;border:1px solid var(--line);width:100%;background:#fff}
+/* tracker */
 .row{display:flex;gap:8px;margin:12px 0}
-.row button{white-space:nowrap;border:0;background:var(--ink);color:#fff;border-radius:12px;padding:0 20px;font:600 14px Inter;cursor:pointer}
-svg.chart{width:100%;height:210px;display:block}
-.check label{display:flex;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);cursor:pointer;font-size:15px}
-.check input{width:20px;height:20px;accent-color:var(--b)}
-.check .bar{height:8px;background:#efede8;border-radius:9px;margin:6px 0 14px;overflow:hidden}
-.check .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--b));transition:width .4s}
-.mini{font-size:13px;color:var(--muted)}
-footer{padding:50px 0 70px;text-align:center;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
-footer .serif{font-size:34px;color:var(--ink);display:block;margin-bottom:8px}
+input[type=number]{font:inherit;padding:10px 12px;border:1px solid var(--ink);background:transparent;width:140px}
+.btn{background:var(--ink);color:var(--paper);padding:10px 18px;font-weight:500}
+.btn.ghost{background:none;color:var(--mute);border:1px solid var(--line);padding:6px 12px;font-size:14px;margin-top:10px}
+svg.chart{width:100%;height:190px;display:block;margin:6px 0}
+.chk{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--acc)}
+.bar{height:4px;background:var(--line);margin:8px 0 6px}.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .3s}
+footer{margin-top:70px;padding:34px 0 60px;border-top:1px solid var(--line);color:var(--mute);font-size:14.5px}
+footer .serif{display:block;font-size:30px;color:var(--ink);margin-bottom:6px}
 
-.rv{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}
-.rv.in{opacity:1;transform:none}
-
-@media(max-width:860px){
-  section{padding:70px 0}
-  .stats,.macros{grid-template-columns:repeat(2,1fr)}
-  .g3,.g2,.meals,.phases,.why,.dd,.trk,.safety,.plate{grid-template-columns:1fr}
-  .total .msg{margin-left:0;max-width:none}
-  nav ul{display:none}
-  .pie{width:240px}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}#hello span,#intro p{opacity:1;transform:none;filter:none}}
+@media(max-width:640px){.two{grid-template-columns:1fr}.phase{grid-template-columns:1fr}.hero{padding-top:44px}.meal{grid-template-columns:22px 1fr}.meal em{grid-column:2;text-align:left}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#hello span{opacity:1;transform:none}}
 </style>
 </head>
 <body>
 
-<!-- ============ INTRO ============ -->
 <div id="intro" role="dialog" aria-label="Welcome">
-  <div class="glow"></div>
-  <div class="wave" id="wave"></div>
+  <div id="wave"></div>
   <h1 id="hello"></h1>
-  <p>Your personal 12-week program is ready.</p>
-  <button id="skip">Skip intro</button>
+  <button id="skip">Skip</button>
 </div>
 
-<nav>
-  <div class="wrap">
-    <div class="logo"><b></b> Oumaima</div>
-    <ul>
-      <li><a href="#plan">The plan</a></li>
-      <li><a href="#safety">Safety</a></li>
-      <li><a href="#eat">Eating</a></li>
-      <li><a href="#menu">Meals</a></li>
-      <li><a href="#train">Training</a></li>
-      <li><a href="#rules">Do &amp; Don't</a></li>
-      <li><a href="#track">Tracker</a></li>
-    </ul>
-  </div>
-</nav>
+<header class="top"><div class="col">
+  <b>Oumaima</b>
+  <div class="lang"><button data-l="fr">FR</button><button data-l="en">EN</button></div>
+</div></header>
 
-<header class="hero">
-  <div class="wrap">
-    <div class="orb rv"></div>
-    <h1 class="rv">Hello <em>Oumaima.</em><br>Let's build a stronger you.</h1>
-    <p class="rv">Twelve weeks of smart cardio, gentle strength training and food you actually enjoy — designed around your diabetes, not against it.</p>
-    <div class="rv"><a class="btn" href="#plan">See your plan</a><a class="btn ghost" href="#menu">Pick today's meals</a></div>
-    <div class="stats rv">
-      <div class="stat"><b>12</b><span>weeks</span></div>
-      <div class="stat"><b>5–6</b><span>active days / week</span></div>
-      <div class="stat"><b>~1,450</b><span>kcal a day (flexible)</span></div>
-      <div class="stat"><b>10k</b><span>steps a day</span></div>
-    </div>
-  </div>
-</header>
-
-<section id="plan">
-  <div class="wrap">
-    <div class="kicker">The big picture</div>
-    <h2 class="rv">Three pillars. <em>One routine.</em></h2>
-    <p class="lead rv">Fat loss happens in the kitchen and on the cardio machines. Strength training is what keeps your skin firm and your shape toned as the weight comes off.</p>
-    <div class="grid g3">
-      <div class="card rv"><div class="ico">🥗</div><h3>Flexible eating</h3><p>A daily calorie and protein target, with dozens of interchangeable meals. Pick what you feel like — every option fits the plan.</p></div>
-      <div class="card rv"><div class="ico">🏃‍♀️</div><h3>Cardio first</h3><p>Incline walking, bike, elliptical and intervals do the heavy lifting for fat loss, and they're gentle on blood sugar when done right.</p></div>
-      <div class="card rv"><div class="ico">🏋️‍♀️</div><h3>Strength 3× a week</h3><p>Muscle fills out the skin, speeds your metabolism and improves insulin sensitivity — the best friend of anyone with diabetes.</p></div>
-    </div>
-    <div class="grid g3" style="margin-top:16px">
-      <div class="card rv"><h3>Weekly pace</h3><p>Aim for a steady drop of roughly 1–1.5 kg per week. Faster is not better: very fast loss risks lows, muscle loss and loose skin.</p></div>
-      <div class="card rv"><h3>Weigh-in once a week</h3><p>Same day, same time, morning, after the bathroom. Daily weight swings are water — ignore them.</p></div>
-      <div class="card rv"><h3>Adjust, don't quit</h3><p>If the scale stalls for 2 weeks, we tweak food or cardio slightly. One bad day changes nothing.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="safety" style="padding-top:0">
-  <div class="wrap">
-    <div class="kicker">Diabetes first</div>
-    <h2 class="rv">Safety <em>comes before speed.</em></h2>
-    <div class="safety rv">
-      <div>
-        <h3>Before you start</h3>
-        <ul>
-          <li><b>Tell your doctor</b> about this plan. As weight and food change, your medication or insulin needs may change too — never adjust doses on your own.</li>
-          <li><b>Check your glucose</b> before and after every workout, and during long sessions (over 60 min).</li>
-          <li><b>Start a workout</b> with glucose roughly 100–250 mg/dL (5.6–13.9 mmol/L). Under 100 → eat 15 g of carbs first. Over 250 with symptoms or ketones → skip it.</li>
-          <li><b>Never skip meals</b> to "save" calories. Steady meals = steady sugar.</li>
-          <li>Check your feet daily, wear proper shoes and socks, and keep water close.</li>
-          <li>Always carry fast sugar and your phone. Tell the gym staff or a friend you're diabetic.</li>
-        </ul>
-      </div>
-      <div class="rule15">
-        <h3>If you feel low (shaky, sweaty, dizzy, hungry)</h3>
-        <ol>
-          <li>Stop exercising immediately and sit down.</li>
-          <li>Take <b>15 g fast carbs</b>: 3–4 glucose tablets, ½ cup juice, or 1 tbsp honey/sugar.</li>
-          <li>Wait <b>15 minutes</b> and recheck.</li>
-          <li>Still under 70 mg/dL (3.9 mmol/L)? Repeat.</li>
-          <li>Once normal, eat a small snack with protein. Skip the rest of that workout.</li>
-        </ol>
-        <p class="mini" style="margin-top:12px">Severe symptoms, confusion or fainting → call emergency services.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="eat" class="dark">
-  <div class="wrap">
-    <div class="kicker">Eating</div>
-    <h2 class="rv">Build every plate <em>the same way.</em></h2>
-    <p class="lead rv">You don't need to count everything. Use the plate, hit your protein, and let the menu below do the rest.</p>
-    <div class="plate rv">
-      <div class="pie"></div>
-      <div class="legend">
-        <div><i style="background:#3dd6c6"></i><p><b>½ plate · non-starchy vegetables</b><span>Salad, courgette, broccoli, peppers, tomatoes, green beans. Eat as much as you like.</span></p></div>
-        <div><i style="background:#ff7a59"></i><p><b>¼ plate · lean protein</b><span>Chicken, turkey, fish, eggs, lean beef, legumes, yogurt. Protects muscle and keeps you full.</span></p></div>
-        <div><i style="background:#a66bff"></i><p><b>¼ plate · smart carbs</b><span>Quinoa, oats, lentils, sweet potato, brown rice, whole-grain bread. Small, measured portions.</span></p></div>
-      </div>
-    </div>
-    <div class="macros rv" style="margin-top:50px">
-      <div class="macro"><b>1,400–1,500</b><span>kcal / day</span></div>
-      <div class="macro"><b>100–110 g</b><span>protein / day</span></div>
-      <div class="macro"><b>120–150 g</b><span>carbs, spread over the day</span></div>
-      <div class="macro"><b>30 g+</b><span>fibre &amp; 2.5 L water</span></div>
-    </div>
-    <div class="grid g3">
-      <div class="card rv"><h3>5 small meals</h3><p>Breakfast, snack, lunch, snack, dinner — about every 3–4 hours. Keeps sugar even and hunger low.</p></div>
-      <div class="card rv"><h3>Carbs in company</h3><p>Never eat carbs alone. Pair them with protein, fibre or healthy fat to slow the glucose rise.</p></div>
-      <div class="card rv"><h3>Dinner by 8 pm</h3><p>Finish eating 2–3 hours before bed for better overnight sugar and sleep.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="menu">
-  <div class="wrap">
-    <div class="kicker">Meal builder</div>
-    <h2 class="rv">Choose your day. <em>Any combo works.</em></h2>
-    <p class="lead rv">Tap one option per meal. The counter below shows how close you are to your daily target. Calories are estimates — portions matter.</p>
-    <div class="chips" id="chips"></div>
-    <div id="menuBody"></div>
-    <div class="total" id="total">
-      <div>Calories<b id="tK">0</b></div>
-      <div>Protein<b id="tP">0 g</b></div>
-      <div>Carbs<b id="tC">0 g</b></div>
-      <div class="msg" id="tM">Pick a breakfast, two snacks, a lunch and a dinner.</div>
-    </div>
-    <div class="card rv" style="margin-top:26px">
-      <h3>Free foods — unlimited</h3>
-      <div class="free"><span>Water</span><span>Unsweetened tea</span><span>Black coffee</span><span>Cucumber</span><span>Lettuce &amp; greens</span><span>Herbs &amp; spices</span><span>Lemon</span><span>Vinegar</span><span>Clear broth</span><span>Sparkling water</span></div>
-      <p class="mini" style="margin-top:14px">Cooking: grill, bake, steam or air-fry. Max 1 tbsp olive oil per meal. Weekly flexibility: one "free-ish" meal per week is fine — keep the portion sensible and stay with your glucose checks.</p>
-    </div>
-  </div>
-</section>
-
-<section id="train" class="dark">
-  <div class="wrap">
-    <div class="kicker">Training</div>
-    <h2 class="rv">Your week <em>at the gym.</em></h2>
-    <p class="lead rv">Cardio is the engine; strength is the shaper. Tap a day to see exactly what to do.</p>
-    <div class="phases rv">
-      <div class="phase"><small>WEEKS 1–4</small><h3>Foundation</h3><p>Learn the machines and form. Cardio at an easy, chatty pace. Strength: 2 sets × 12–15 reps, light weights.</p></div>
-      <div class="phase"><small>WEEKS 5–8</small><h3>Build</h3><p>Longer cardio and first intervals. Strength: 3 sets × 10–12 reps. Add weight when the last 2 reps feel easy.</p></div>
-      <div class="phase"><small>WEEKS 9–12</small><h3>Sculpt</h3><p>More intervals, steady strength progress. Strength: 3 sets × 8–12 reps, shorter rests, great form.</p></div>
-    </div>
-    <div class="days" id="days"></div>
-    <div class="panel" id="panel"></div>
-    <div class="why">
-      <div class="card rv"><h3>Why strength matters</h3><p>As fat leaves, muscle underneath gives skin something to wrap around. It's the single best defence against looseness.</p></div>
-      <div class="card rv"><h3>Skin-friendly habits</h3><p>Hit your protein, drink water, lose weight at a steady pace, moisturise daily and get 7–8 hours of sleep.</p></div>
-      <div class="card rv"><h3>Daily movement</h3><p>On top of the gym: a 10-minute walk after your biggest meals lowers the glucose spike and burns extra calories.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="rules">
-  <div class="wrap">
-    <div class="kicker">The rules</div>
-    <h2 class="rv">Do this. <em>Not that.</em></h2>
-    <div class="dd" style="margin-top:34px">
-      <div class="card do rv"><h3>Do</h3><ul>
-        <li>Check glucose before and after training</li>
-        <li>Eat protein at every meal and snack</li>
-        <li>Drink 2.5 L of water daily</li>
-        <li>Walk 10 minutes after main meals</li>
-        <li>Warm up 5–10 minutes, stretch at the end</li>
-        <li>Lift with control — slow down, full range</li>
-        <li>Sleep 7–8 hours</li>
-        <li>Prep meals on Sunday so choices are easy</li>
-        <li>Photograph progress every 2 weeks</li>
-        <li>Report any repeated lows or highs to your doctor</li>
-      </ul></div>
-      <div class="card dont rv"><h3>Don't</h3><ul>
-        <li>Skip meals or starve yourself</li>
-        <li>Train with a low glucose or an empty tank</li>
-        <li>Drink juice, soda or sweetened drinks (except to treat a low)</li>
-        <li>"Diet" foods full of hidden sugar</li>
-        <li>Change medication or insulin yourself</li>
-        <li>Do cardio only — strength is not optional</li>
-        <li>Weigh yourself every day and panic</li>
-        <li>Use laxatives, diuretics or fat-burner pills</li>
-        <li>Train through chest pain, dizziness or foot injuries</li>
-        <li>Compare yourself to anyone else</li>
-      </ul></div>
-    </div>
-  </div>
-</section>
-
-<section id="track" style="background:#f3f1ec">
-  <div class="wrap">
-    <div class="kicker">Tracker</div>
-    <h2 class="rv">Small wins, <em>every week.</em></h2>
-    <p class="lead rv">Saved on this device only. Log your weekly weight and tick off the week's habits.</p>
-    <div class="trk">
-      <div class="card rv">
-        <h3>Weekly weigh-in (kg)</h3>
-        <div class="row"><input id="wIn" type="number" step="0.1" placeholder="e.g. 80.4"><button id="wAdd">Add</button></div>
-        <svg class="chart" id="chart" viewBox="0 0 500 210" preserveAspectRatio="none"></svg>
-        <p class="mini" id="wInfo">Start weight: 82 kg. Log your first weigh-in above.</p>
-        <button class="chip" id="wClear" style="margin-top:10px">Reset</button>
-      </div>
-      <div class="card check rv">
-        <h3>This week's habits</h3>
-        <div class="bar"><i id="cBar"></i></div>
-        <div id="checks"></div>
-        <button class="chip" id="cClear" style="margin-top:12px">New week</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <span class="serif">You've got this, Oumaima.</span>
-    This program is general guidance, not medical advice. Keep your doctor in the loop.
-  </div>
-</footer>
+<main class="col" id="app"></main>
 
 <script>
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const L=(fr,en)=>({fr,en});
+let lang=store.get('lang','fr');
+if(lang!=='fr'&&lang!=='en')lang='fr';
+const t=x=>x[lang];
 
-/* ---------- Intro ---------- */
-(function(){
-  const intro=$('#intro'), wave=$('#wave'), hello=$('#hello');
-  for(let i=0;i<41;i++){const b=document.createElement('i');const d=Math.abs(i-20);b.style.setProperty('--h',(18+Math.random()*30+(20-d)*3)+'px');b.style.animationDelay=(i*0.045)+'s';b.style.animationDuration=(0.9+Math.random()*0.7)+'s';wave.appendChild(b)}
-  let delay=0.35;
-  const add=(txt,cls)=>{[...txt].forEach(ch=>{const s=document.createElement('span');s.textContent=ch===' '?' ':ch;if(cls)s.className=cls;s.style.animationDelay=(delay+=0.055)+'s';hello.appendChild(s)})};
-  add('Hello ');add('Oumaima','name');
-  let closed=false;
-  const close=()=>{if(closed)return;closed=true;intro.classList.add('done');document.body.style.overflow='';setTimeout(()=>intro.remove(),1000)};
-  document.body.style.overflow='hidden';
-  $('#skip').onclick=close;
-  setTimeout(close,3800);
-})();
-
-/* ---------- Reveal on scroll ---------- */
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
-$$('.rv').forEach(el=>io.observe(el));
-
-/* ---------- Meals ---------- */
-const MEALS={
- Breakfast:[
-  ['Veggie omelette','2 eggs + 1 white, spinach, tomato, mushrooms, 1 slice whole-grain toast',320,22,16],
-  ['Greek yogurt bowl','200 g plain 0% yogurt, berries, 15 g walnuts, cinnamon',280,24,18],
-  ['Protein oats','40 g oats, 150 g skyr, 1 tbsp chia, ½ apple',340,26,38],
-  ['Avocado toast + egg','1 slice whole-grain, ¼ avocado, poached egg, tomato',300,14,24],
-  ['Cottage cheese plate','150 g cottage cheese, cucumber, tomato, olives, 1 rye crispbread',260,22,14],
-  ['Chia pudding','3 tbsp chia, 200 ml unsweetened almond milk, 1 scoop protein, berries',290,22,20]],
- Snack:[
-  ['Apple + almonds','1 small apple + 10 almonds',150,4,22],
-  ['Two boiled eggs','With salt, pepper and paprika',140,12,1],
-  ['Veg sticks + hummus','Cucumber and carrot with 2 tbsp hummus',110,4,12],
-  ['Skyr &amp; cinnamon','150 g plain skyr',95,16,6],
-  ['Nut handful','20 g unsalted mixed nuts',120,4,4],
-  ['Celery + peanut butter','3 celery sticks + 1 tbsp natural peanut butter',100,4,4]],
- Lunch:[
-  ['Grilled chicken bowl','150 g chicken, greens, 80 g chickpeas, lemon + 1 tsp olive oil',430,40,28],
-  ['Light lentil soup','300 ml harira-style lentil soup, side salad, 1 boiled egg',380,24,40],
-  ['Tuna &amp; white bean salad','1 can tuna, 80 g beans, peppers, onion, parsley, 1 tbsp oil',400,38,24],
-  ['Light chicken tagine','150 g chicken, courgette, carrot, olives, 80 g cooked quinoa',440,38,32],
-  ['Turkey lettuce wraps','150 g turkey, crunchy veg, yogurt sauce, 80 g quinoa',420,36,28],
-  ['Baked fish + sweet potato','Fish fillet, roasted veg, 100 g sweet potato',410,36,30]],
- Dinner:[
-  ['Grilled fish + greens','130 g fish, steamed broccoli, big salad',380,34,10],
-  ['Turkey “bolognese”','Courgette noodles, lean turkey, tomato sauce',340,34,16],
-  ['Shrimp stir-fry','Mixed veg, 1 tsp sesame oil, 60 g cooked brown rice',360,32,28],
-  ['Chicken kebab skewers','Grilled veg, yogurt-cucumber dip',370,40,12],
-  ['Veggie shakshuka','2 eggs in spiced tomato-pepper sauce, ½ slice bread',340,20,20],
-  ['Stuffed peppers','100 g lean beef, 40 g rice, herbs',380,28,28]]
+/* ================= CONTENT ================= */
+const C={
+ hero:{
+  h:L('Ton programme,<br><em>12 semaines.</em>','Your program,<br><em>12 weeks.</em>'),
+  p:L('Du cardio, un peu de musculation et des repas que tu aimes vraiment. Tout est pensé pour ton diabète, pas contre lui.',
+      'Cardio, some strength work, and meals you actually enjoy. Everything is built around your diabetes, not against it.'),
+  facts:[[L('12','12'),L('semaines','weeks')],[L('5–6','5–6'),L('jours actifs / sem.','active days / week')],[L('~1 450','~1,450'),L('kcal par jour','kcal a day')],[L('10 000','10,000'),L('pas par jour','steps a day')]]
+ },
+ plan:{
+  h:L('Le plan','The plan'),
+  body:L(
+   `<p>La perte de poids se joue dans l'assiette et sur les machines de cardio. La musculation, elle, sert à garder la peau ferme et le corps tonique quand les kilos partent.</p>
+    <ul class="pl"><li><b>Manger :</b> un objectif de calories et de protéines par jour, avec plein de repas interchangeables. Tu choisis ce qui te fait envie.</li>
+    <li><b>Cardio :</b> marche inclinée, vélo, elliptique et intervalles. C'est le moteur de la perte de graisse.</li>
+    <li><b>Musculation :</b> 3 fois par semaine. Le muscle remplit la peau et aide ton corps à mieux utiliser l'insuline.</li></ul>
+    <div class="note"><b>Le rythme.</b> Vise une perte régulière d'environ 1 à 1,5 kg par semaine. Plus vite n'est pas mieux : risque d'hypoglycémies, de perte de muscle et de peau relâchée. Pèse-toi une fois par semaine, le même jour, le matin. Si la balance stagne deux semaines, on ajuste un peu la nourriture ou le cardio. Une mauvaise journée ne change rien.</div>`,
+   `<p>Weight loss happens in the kitchen and on the cardio machines. Strength training keeps your skin firm and your body toned as the weight comes off.</p>
+    <ul class="pl"><li><b>Eating:</b> a daily calorie and protein target, with plenty of interchangeable meals. You pick what you feel like.</li>
+    <li><b>Cardio:</b> incline walking, bike, elliptical and intervals. It's the engine of fat loss.</li>
+    <li><b>Strength:</b> 3 times a week. Muscle fills out the skin and helps your body use insulin better.</li></ul>
+    <div class="note"><b>The pace.</b> Aim for a steady loss of about 1–1.5 kg a week. Faster isn't better: it risks lows, muscle loss and loose skin. Weigh yourself once a week, same day, in the morning. If the scale stalls for two weeks, we tweak food or cardio slightly. One bad day changes nothing.</div>`)
+ },
+ safety:{
+  h:L('Sécurité : diabète d\'abord','Safety: diabetes first'),
+  body:L(
+   `<ul class="pl">
+    <li><b>Parle de ce plan à ton médecin.</b> En perdant du poids, tes besoins en médicaments ou insuline peuvent baisser. Ne change jamais une dose toute seule.</li>
+    <li><b>Mesure ta glycémie</b> avant et après chaque séance, et pendant les séances de plus d'une heure.</li>
+    <li><b>Pour commencer une séance :</b> glycémie entre 1,00 et 2,50 g/L (5,6–13,9 mmol/L). En dessous de 1,00, mange d'abord 15 g de glucides. Au-dessus de 2,50 avec symptômes ou cétones, ne fais pas de sport.</li>
+    <li><b>Ne saute jamais de repas</b> pour économiser des calories. Des repas réguliers, c'est une glycémie stable.</li>
+    <li>Regarde tes pieds chaque jour, porte de bonnes chaussures, garde de l'eau près de toi.</li>
+    <li>Aie toujours du sucre rapide et ton téléphone sur toi. Préviens la salle ou une amie que tu es diabétique.</li></ul>
+    <div class="low"><h3 style="margin-top:0">Si tu fais une hypoglycémie (tremblements, sueurs, vertiges, faim)</h3>
+    <ol><li>Arrête tout de suite et assieds-toi.</li><li>Prends <b>15 g de sucre rapide</b> : 3–4 comprimés de glucose, ½ verre de jus, ou 1 c. à s. de miel.</li><li>Attends <b>15 minutes</b> et recontrôle.</li><li>Toujours sous 0,70 g/L (3,9 mmol/L) ? Recommence.</li><li>Quand c'est revenu à la normale, mange une petite collation avec des protéines. Pas de reprise de la séance.</li></ol>
+    <p class="small" style="margin:10px 0 0">Symptômes sévères, confusion ou malaise : appelle les secours.</p></div>`,
+   `<ul class="pl">
+    <li><b>Tell your doctor about this plan.</b> As you lose weight, your medication or insulin needs may drop. Never change a dose on your own.</li>
+    <li><b>Check your glucose</b> before and after every workout, and during sessions over an hour.</li>
+    <li><b>To start a workout:</b> glucose around 100–250 mg/dL (5.6–13.9 mmol/L). Under 100, eat 15 g of carbs first. Over 250 with symptoms or ketones, skip it.</li>
+    <li><b>Never skip meals</b> to save calories. Regular meals mean steady sugar.</li>
+    <li>Check your feet daily, wear proper shoes, keep water close.</li>
+    <li>Always carry fast sugar and your phone. Tell the gym or a friend you're diabetic.</li></ul>
+    <div class="low"><h3 style="margin-top:0">If you go low (shaky, sweaty, dizzy, hungry)</h3>
+    <ol><li>Stop right away and sit down.</li><li>Take <b>15 g fast sugar</b>: 3–4 glucose tablets, ½ cup juice, or 1 tbsp honey.</li><li>Wait <b>15 minutes</b> and recheck.</li><li>Still under 70 mg/dL (3.9 mmol/L)? Repeat.</li><li>Once normal, eat a small snack with protein. Don't resume the workout.</li></ol>
+    <p class="small" style="margin:10px 0 0">Severe symptoms, confusion or fainting: call emergency services.</p></div>`)
+ },
+ eat:{
+  h:L('Manger','Eating'),
+  intro:L('Pas besoin de tout compter. Compose ton assiette de la même façon, atteins tes protéines, et pioche dans les repas plus bas.',
+          'No need to count everything. Build your plate the same way every time, hit your protein, and pick from the meals below.'),
+  plate:[
+   [L('½ assiette','½ plate'),L('Légumes non féculents','Non-starchy vegetables'),L('Salade, courgette, brocoli, poivrons, tomates, haricots verts. À volonté.','Salad, courgette, broccoli, peppers, tomatoes, green beans. As much as you like.')],
+   [L('¼ assiette','¼ plate'),L('Protéines maigres','Lean protein'),L('Poulet, dinde, poisson, œufs, bœuf maigre, légumineuses, yaourt. Protège le muscle et cale.','Chicken, turkey, fish, eggs, lean beef, legumes, yogurt. Protects muscle and keeps you full.')],
+   [L('¼ assiette','¼ plate'),L('Glucides intelligents','Smart carbs'),L('Quinoa, avoine, lentilles, patate douce, riz complet, pain complet. Petites portions mesurées.','Quinoa, oats, lentils, sweet potato, brown rice, whole-grain bread. Small, measured portions.')]
+  ],
+  targets:[[L('Calories','Calories'),L('1 400 – 1 500 kcal / jour','1,400 – 1,500 kcal / day')],[L('Protéines','Protein'),L('100 – 110 g / jour','100 – 110 g / day')],[L('Glucides','Carbs'),L('120 – 150 g, répartis sur la journée','120 – 150 g, spread across the day')],[L('Fibres','Fibre'),L('30 g et plus','30 g or more')],[L('Eau','Water'),L('2,5 L / jour','2.5 L / day')]],
+  rules:L(
+   `<ul class="pl"><li><b>5 petits repas :</b> petit-déjeuner, collation, déjeuner, collation, dîner, toutes les 3–4 heures.</li><li><b>Jamais de glucides seuls :</b> associe-les à des protéines ou des fibres pour ralentir la montée du sucre.</li><li><b>Dîner avant 20 h,</b> 2–3 heures avant le coucher.</li><li><b>Cuisson :</b> grillé, four, vapeur ou air fryer. Max 1 c. à s. d'huile d'olive par repas.</li><li><b>À volonté :</b> eau, thé non sucré, café noir, concombre, salade, herbes, épices, citron, bouillon clair.</li></ul>`,
+   `<ul class="pl"><li><b>5 small meals:</b> breakfast, snack, lunch, snack, dinner, every 3–4 hours.</li><li><b>Never carbs alone:</b> pair them with protein or fibre to slow the sugar rise.</li><li><b>Dinner by 8 pm,</b> 2–3 hours before bed.</li><li><b>Cooking:</b> grilled, baked, steamed or air-fried. Max 1 tbsp olive oil per meal.</li><li><b>Unlimited:</b> water, unsweetened tea, black coffee, cucumber, salad, herbs, spices, lemon, clear broth.</li></ul>`)
+ },
+ menu:{
+  h:L('Compose ta journée','Build your day'),
+  intro:L('Choisis un repas par catégorie (deux collations). Le compteur te montre où tu en es. Les calories sont des estimations : les portions comptent.',
+          'Pick one meal per category (two snacks). The counter shows where you stand. Calories are estimates: portions matter.'),
+  cats:{
+   b:L('Petit-déjeuner','Breakfast'), s:L('Collations (2)','Snacks (2)'), l:L('Déjeuner','Lunch'), d:L('Dîner','Dinner')},
+  items:{
+   b:[
+    [L('Omelette aux légumes','Veggie omelette'),L('2 œufs + 1 blanc, épinards, tomate, champignons, 1 tranche de pain complet','2 eggs + 1 white, spinach, tomato, mushrooms, 1 slice whole-grain toast'),320,22,16],
+    [L('Bol de yaourt grec','Greek yogurt bowl'),L('200 g de yaourt nature 0 %, fruits rouges, 15 g de noix, cannelle','200 g plain 0% yogurt, berries, 15 g walnuts, cinnamon'),280,24,18],
+    [L('Avoine protéinée','Protein oats'),L('40 g de flocons d\'avoine, 150 g de skyr, 1 c. à s. de chia, ½ pomme','40 g oats, 150 g skyr, 1 tbsp chia, ½ apple'),340,26,38],
+    [L('Tartine avocat-œuf','Avocado toast + egg'),L('1 tranche de pain complet, ¼ d\'avocat, œuf poché, tomate','1 slice whole-grain bread, ¼ avocado, poached egg, tomato'),300,14,24],
+    [L('Assiette de fromage blanc','Cottage cheese plate'),L('150 g de cottage cheese, concombre, tomate, olives, 1 cracotte au seigle','150 g cottage cheese, cucumber, tomato, olives, 1 rye crispbread'),260,22,14],
+    [L('Pudding de chia','Chia pudding'),L('3 c. à s. de chia, 200 ml de lait d\'amande non sucré, 1 mesure de protéine, fruits rouges','3 tbsp chia, 200 ml unsweetened almond milk, 1 scoop protein, berries'),290,22,20]],
+   s:[
+    [L('Pomme + amandes','Apple + almonds'),L('1 petite pomme + 10 amandes','1 small apple + 10 almonds'),150,4,22],
+    [L('Deux œufs durs','Two boiled eggs'),L('Sel, poivre, paprika','Salt, pepper, paprika'),140,12,1],
+    [L('Crudités + houmous','Veg sticks + hummus'),L('Concombre et carotte, 2 c. à s. de houmous','Cucumber and carrot, 2 tbsp hummus'),110,4,12],
+    [L('Skyr à la cannelle','Skyr with cinnamon'),L('150 g de skyr nature','150 g plain skyr'),95,16,6],
+    [L('Poignée de noix','Handful of nuts'),L('20 g de noix nature non salées','20 g unsalted mixed nuts'),120,4,4],
+    [L('Céleri + beurre de cacahuète','Celery + peanut butter'),L('3 branches de céleri + 1 c. à s. de beurre de cacahuète nature','3 celery sticks + 1 tbsp natural peanut butter'),100,4,4]],
+   l:[
+    [L('Bol de poulet grillé','Grilled chicken bowl'),L('150 g de poulet, salade, 80 g de pois chiches, citron + 1 c. à c. d\'huile d\'olive','150 g chicken, greens, 80 g chickpeas, lemon + 1 tsp olive oil'),430,40,28],
+    [L('Soupe de lentilles légère','Light lentil soup'),L('300 ml de soupe type harira, salade, 1 œuf dur','300 ml harira-style soup, side salad, 1 boiled egg'),380,24,40],
+    [L('Salade thon et haricots blancs','Tuna and white bean salad'),L('1 boîte de thon, 80 g de haricots, poivron, oignon, persil, 1 c. à s. d\'huile','1 can tuna, 80 g beans, pepper, onion, parsley, 1 tbsp oil'),400,38,24],
+    [L('Tajine de poulet léger','Light chicken tagine'),L('150 g de poulet, courgette, carotte, olives, 80 g de quinoa cuit','150 g chicken, courgette, carrot, olives, 80 g cooked quinoa'),440,38,32],
+    [L('Wraps de laitue à la dinde','Turkey lettuce wraps'),L('150 g de dinde, crudités, sauce yaourt, 80 g de quinoa','150 g turkey, raw veg, yogurt sauce, 80 g quinoa'),420,36,28],
+    [L('Poisson au four + patate douce','Baked fish + sweet potato'),L('Filet de poisson, légumes rôtis, 100 g de patate douce','Fish fillet, roasted veg, 100 g sweet potato'),410,36,30]],
+   d:[
+    [L('Poisson grillé + légumes verts','Grilled fish + greens'),L('130 g de poisson, brocoli vapeur, grande salade','130 g fish, steamed broccoli, big salad'),380,34,10],
+    [L('« Bolognaise » de dinde','Turkey "bolognese"'),L('Spaghettis de courgette, dinde maigre, sauce tomate','Courgette noodles, lean turkey, tomato sauce'),340,34,16],
+    [L('Sauté de crevettes','Shrimp stir-fry'),L('Légumes variés, 1 c. à c. d\'huile de sésame, 60 g de riz complet cuit','Mixed veg, 1 tsp sesame oil, 60 g cooked brown rice'),360,32,28],
+    [L('Brochettes de poulet','Chicken skewers'),L('Légumes grillés, sauce yaourt-concombre','Grilled veg, yogurt-cucumber dip'),370,40,12],
+    [L('Chakchouka aux légumes','Veggie shakshuka'),L('2 œufs dans une sauce tomate-poivron épicée, ½ tranche de pain','2 eggs in spiced tomato-pepper sauce, ½ slice bread'),340,20,20],
+    [L('Poivrons farcis','Stuffed peppers'),L('100 g de bœuf maigre, 40 g de riz, herbes','100 g lean beef, 40 g rice, herbs'),380,28,28]]
+  },
+  msg:{
+   none:L('Choisis un petit-déjeuner, deux collations, un déjeuner et un dîner.','Pick a breakfast, two snacks, a lunch and a dinner.'),
+   low:L('Un peu bas : ajoute une collation ou plus de légumes et de protéines.','A bit low: add a snack or more veg and protein.'),
+   high:L('Un peu au-dessus : allège une collation ou les glucides.','A little above target: trim a snack or the carbs.'),
+   ok:L('Dans la cible. Belle journée.','Right on target. Nice day.')
+  }
+ },
+ train:{
+  h:L('Entraînement','Training'),
+  intro:L('Le cardio fait le gros du travail, la musculation façonne. Clique sur un jour pour voir le détail.','Cardio does the heavy lifting; strength shapes. Tap a day to see the details.'),
+  phases:[
+   [L('Sem. 1–4','Weeks 1–4'),L('<b>Base.</b> Apprends les machines et la posture. Cardio à allure facile. Muscu : 2 séries de 12–15, charges légères.','<b>Foundation.</b> Learn the machines and form. Easy-pace cardio. Strength: 2 sets of 12–15, light weights.')],
+   [L('Sem. 5–8','Weeks 5–8'),L('<b>Progression.</b> Cardio plus long et premiers intervalles. Muscu : 3 séries de 10–12. Augmente la charge quand les 2 dernières reps sont faciles.','<b>Build.</b> Longer cardio and first intervals. Strength: 3 sets of 10–12. Add weight when the last 2 reps feel easy.')],
+   [L('Sem. 9–12','Weeks 9–12'),L('<b>Sculpt.</b> Plus d\'intervalles. Muscu : 3 séries de 8–12, repos plus courts, belle exécution.','<b>Sculpt.</b> More intervals. Strength: 3 sets of 8–12, shorter rests, clean form.')]
+  ],
+  warm:L('Échauffement : 5–10 min de cardio facile + rotations des bras et des hanches, squats au poids du corps.','Warm-up: 5–10 min easy cardio + arm and hip circles, bodyweight squats.'),
+  after:L(
+   `<ul class="pl"><li><b>Pourquoi la muscu :</b> quand la graisse part, le muscle en dessous donne du volume à la peau. C'est la meilleure défense contre le relâchement.</li><li><b>Pour la peau :</b> tes protéines, de l'eau, une perte régulière, une crème hydratante chaque jour et 7–8 h de sommeil.</li><li><b>Au quotidien :</b> 10 minutes de marche après les gros repas font baisser la glycémie et brûlent des calories en plus.</li></ul>`,
+   `<ul class="pl"><li><b>Why strength:</b> as fat leaves, the muscle underneath gives the skin volume. It's the best defence against looseness.</li><li><b>For your skin:</b> hit your protein, drink water, lose weight steadily, moisturise daily and sleep 7–8 hours.</li><li><b>Daily:</b> a 10-minute walk after big meals lowers the sugar spike and burns extra calories.</li></ul>`),
+  days:[
+   {d:L('Lun','Mon'),n:L('Muscu A · bas du corps et abdos · 45 min','Strength A · lower body and core · 45 min'),x:[
+    [L('Squat gobelet','Goblet squat'),'3 × 10–15',L('Haltère contre la poitrine. Assieds-toi vers l\'arrière, buste droit.','Dumbbell at chest. Sit back and down, chest tall.')],
+    [L('Presse à cuisses','Leg press'),'3 × 10–15',L('Pieds largeur d\'épaules, ne bloque jamais les genoux.','Feet shoulder-width, never lock the knees.')],
+    [L('Soulevé de terre roumain (haltères)','Romanian deadlift (dumbbells)'),'3 × 10–12',L('Charnière des hanches, genoux souples, dos plat.','Hinge at the hips, soft knees, flat back.')],
+    [L('Pont fessier','Glute bridge'),'3 × 12–15',L('Serre les fessiers 1 seconde en haut.','Squeeze the glutes for 1 second at the top.')],
+    [L('Fentes marchées','Walking lunges'),L('2–3 × 10 par jambe','2–3 × 10 per leg'),L('Petits pas, buste droit.','Short steps, upright torso.')],
+    [L('Gainage','Plank'),L('3 × 20–40 s','3 × 20–40 sec'),L('Ligne droite de la tête aux talons.','Straight line from head to heels.')],
+    [L('Fin : cardio facile','Finish: easy cardio'),'15–20 min',L('Vélo ou marche inclinée, allure où tu peux parler.','Bike or incline walk, conversation pace.')]]},
+   {d:L('Mar','Tue'),n:L('Cardio régulier · 45–60 min','Steady cardio · 45–60 min'),x:[
+    [L('Marche inclinée sur tapis','Incline treadmill walk'),'45–60 min',L('Pente 8–12 %, 5,0–6,0 km/h. Tu peux parler mais pas chanter.','8–12% incline, 5.0–6.0 km/h. You can talk but not sing.')],
+    [L('Fréquence cardiaque','Heart rate'),'~60–70 %',L('Environ 115–135 bpm. Contrôle ta glycémie à 30 min si la séance est longue.','About 115–135 bpm. Check glucose at 30 min if the session is long.')],
+    [L('Étirements','Stretching'),'5–10 min',L('Mollets, ischios, hanches, pectoraux.','Calves, hamstrings, hips, chest.')]]},
+   {d:L('Mer','Wed'),n:L('Muscu B · haut du corps et abdos · 45 min','Strength B · upper body and core · 45 min'),x:[
+    [L('Tirage vertical','Lat pulldown'),'3 × 10–12',L('Tire vers le haut de la poitrine, serre les omoplates.','Pull to the upper chest, squeeze the shoulder blades.')],
+    [L('Rowing à la poulie','Seated cable row'),'3 × 10–12',L('Poitrine haute, sans balancer.','Chest up, no swinging.')],
+    [L('Développé poitrine (machine)','Chest press machine'),'3 × 10–12',L('Mouvement lent et contrôlé.','Smooth, controlled tempo.')],
+    [L('Développé épaules (haltères)','Dumbbell shoulder press'),'3 × 10',L('Charge légère, côtes rentrées.','Light weight, ribs down.')],
+    [L('Curl biceps + triceps poulie','Biceps curl + triceps pushdown'),L('2–3 × 12 chaque','2–3 × 12 each'),L('Enchaîne les deux pour gagner du temps.','Superset the two to save time.')],
+    [L('Dead bug','Dead bug'),L('3 × 10 par côté','3 × 10 per side'),L('Bas du dos collé au sol.','Lower back flat on the floor.')],
+    [L('Fin : cardio facile','Finish: easy cardio'),'15–20 min',L('Elliptique ou vélo.','Elliptical or bike.')]]},
+   {d:L('Jeu','Thu'),n:L('Cardio intervalles · 40 min','Interval cardio · 40 min'),x:[
+    [L('Échauffement','Warm-up'),'5 min',L('Allure facile.','Easy pace.')],
+    [L('Intervalles (vélo ou elliptique)','Intervals (bike or elliptical)'),L('8 × (1 min dur + 2 min facile)','8 × (1 min hard + 2 min easy)'),L('Sem. 1–4 : 5 rounds de 30 s dur + 90 s facile. « Dur » = essoufflée mais maîtrisée.','Weeks 1–4: 5 rounds of 30 s hard + 90 s easy. "Hard" = breathless but in control.')],
+    [L('Retour au calme','Cool-down'),'5 min',L('Ralentis doucement.','Slow down gradually.')]]},
+   {d:L('Ven','Fri'),n:L('Muscu C · corps entier · 45 min','Strength C · full body · 45 min'),x:[
+    [L('Montées sur banc','Step-ups'),L('3 × 10 par jambe','3 × 10 per leg'),L('Le genou suit la pointe du pied.','Knee tracks over the toes.')],
+    [L('Développé incliné (haltères)','Incline dumbbell press'),'3 × 10–12',L('Banc à 30°.','Bench at 30°.')],
+    [L('Rowing un bras','One-arm dumbbell row'),L('3 × 12 par côté','3 × 12 per side'),L('Dos plat, coude vers la hanche.','Back flat, elbow to hip.')],
+    [L('Soulevé de terre kettlebell','Kettlebell deadlift'),'3 × 12',L('Hanches vers l\'arrière, serre les fessiers.','Hips back, squeeze the glutes.')],
+    [L('Élévations latérales','Lateral raise'),'2–3 × 12–15',L('Très léger. Les coudes mènent.','Very light. Lead with the elbows.')],
+    [L('Pallof press','Pallof press'),L('3 × 10 par côté','3 × 10 per side'),L('Résiste à la rotation, abdos serrés.','Resist rotation, core tight.')],
+    [L('Fin : cardio facile','Finish: easy cardio'),'15–20 min',L('Marche inclinée.','Incline walk.')]]},
+   {d:L('Sam','Sat'),n:L('Long cardio · 60–75 min','Long cardio · 60–75 min'),x:[
+    [L('Au choix ou mélange','Pick one or mix'),'60–75 min',L('Marche inclinée, vélo, elliptique ou escalier à allure régulière. Sem. 1–4 : monte progressivement depuis 45 min.','Incline walk, bike, elliptical or stair-climber at a steady pace. Weeks 1–4: build up from 45 min.')],
+    [L('Glycémie et eau','Glucose and water'),'—',L('Contrôle toutes les 30–40 min. Garde du sucre rapide sur toi.','Check every 30–40 min. Keep fast sugar on you.')],
+    [L('Étirements et rouleau','Stretching and foam roller'),'10 min',L('Hanches, cuisses, mollets, dos.','Hips, quads, calves, back.')]]},
+   {d:L('Dim','Sun'),n:L('Récupération active · 30–40 min','Active recovery · 30–40 min'),x:[
+    [L('Marche tranquille dehors','Easy walk outside'),'30–40 min',L('Grand air, sans pression.','Fresh air, no pressure.')],
+    [L('Mobilité ou yoga doux','Mobility or gentle yoga'),'10–15 min',L('Hanches, épaules, colonne.','Hips, shoulders, spine.')],
+    [L('Préparation','Prep'),'—',L('Choisis tes repas de la semaine, prépare les protéines, fais les courses.','Pick next week\'s meals, prep proteins, do the shopping.')]]}
+  ]
+ },
+ rules:{
+  h:L('À faire, à éviter','Do and don\'t'),
+  yes:L(['Mesurer ta glycémie avant et après le sport','Manger des protéines à chaque repas et collation','Boire 2,5 L d\'eau par jour','Marcher 10 minutes après les repas','T\'échauffer 5–10 min et t\'étirer à la fin','Soulever lentement, amplitude complète','Dormir 7–8 heures','Préparer tes repas le dimanche','Prendre une photo tous les 15 jours','Signaler à ton médecin les hypos ou hypers répétées'],
+        ['Check glucose before and after training','Eat protein at every meal and snack','Drink 2.5 L of water a day','Walk 10 minutes after meals','Warm up 5–10 min and stretch afterwards','Lift slowly, full range of motion','Sleep 7–8 hours','Prep your meals on Sunday','Take a photo every two weeks','Tell your doctor about repeated lows or highs']),
+  no:L(['Sauter des repas ou te priver','T\'entraîner avec une glycémie basse ou à jeun','Boire jus, sodas ou boissons sucrées (sauf pour corriger une hypo)','Acheter des produits « light » pleins de sucres cachés','Changer ton traitement ou ton insuline seule','Faire uniquement du cardio : la muscu n\'est pas optionnelle','Te peser tous les jours et paniquer','Prendre laxatifs, diurétiques ou brûleurs de graisse','T\'entraîner malgré douleur thoracique, vertiges ou blessure au pied','Te comparer aux autres'],
+       ['Skip meals or starve yourself','Train on low glucose or an empty stomach','Drink juice, soda or sweet drinks (except to treat a low)','Buy "light" foods full of hidden sugar','Change your medication or insulin on your own','Do only cardio: strength is not optional','Weigh yourself daily and panic','Use laxatives, diuretics or fat-burner pills','Train through chest pain, dizziness or a foot injury','Compare yourself to others'])
+ },
+ track:{
+  h:L('Suivi','Tracking'),
+  intro:L('Enregistré uniquement sur cet appareil.','Saved on this device only.'),
+  weigh:L('Pesée hebdomadaire (kg)','Weekly weigh-in (kg)'),
+  add:L('Ajouter','Add'),reset:L('Réinitialiser','Reset'),confirm:L('Effacer toutes les pesées ?','Reset all weigh-ins?'),
+  empty:L('Poids de départ : 82 kg. Ajoute ta première pesée.','Start weight: 82 kg. Add your first weigh-in.'),
+  goal:L('objectif','goal'),wk:L('sem.','wk'),
+  habits:L('Habitudes de la semaine','This week\'s habits'),newWeek:L('Nouvelle semaine','New week'),
+  hab:L(['Protéines atteintes 6 jours sur 7','3 séances de musculation','3 séances de cardio','10 000 pas la plupart des jours','2,5 L d\'eau par jour','Glycémie contrôlée autour des séances','7 h de sommeil ou plus','Pesée de la semaine enregistrée'],
+        ['Protein target hit 6 days out of 7','3 strength sessions','3 cardio sessions','10,000 steps most days','2.5 L of water a day','Glucose checked around workouts','7+ hours of sleep','Weekly weigh-in logged'])
+ },
+ foot:{big:L('Tu vas y arriver, Oumaima.','You\'ve got this, Oumaima.'),small:L('Ce programme est un guide général, pas un avis médical. Garde ton médecin dans la boucle.','This program is general guidance, not medical advice. Keep your doctor in the loop.')}
 };
-const SLOTS=['Breakfast','Snack','Lunch','Snack','Dinner']; // order for the day
-const state={Breakfast:null,Snack:[],Lunch:null,Dinner:null};
-let tab='Breakfast';
-const chips=$('#chips'), body=$('#menuBody');
-Object.keys(MEALS).forEach(k=>{const c=document.createElement('button');c.className='chip';c.textContent=k+(k==='Snack'?'s (pick 2)':'');c.onclick=()=>{tab=k;renderMenu()};c.dataset.k=k;chips.appendChild(c)});
-function isSel(k,i){return k==='Snack'?state.Snack.includes(i):state[k]===i}
-function renderMenu(){
-  $$('.chip',chips).forEach(c=>c.classList.toggle('on',c.dataset.k===tab));
-  body.innerHTML='<div class="meals">'+MEALS[tab].map((m,i)=>`<button class="meal ${isSel(tab,i)?'sel':''}" data-i="${i}"><h4>${m[0]}</h4><p>${m[1]}</p><div class="tags"><span class="k">${m[2]} kcal</span><span class="p">${m[3]} g protein</span><span>${m[4]} g carbs</span></div></button>`).join('')+'</div>';
-  $$('.meal',body).forEach(b=>b.onclick=()=>{const i=+b.dataset.i;
-    if(tab==='Snack'){const s=state.Snack;const j=s.indexOf(i);if(j>-1)s.splice(j,1);else{if(s.length>=2)s.shift();s.push(i)}}
-    else state[tab]=state[tab]===i?null:i;
-    renderMenu();updateTotal()});
+
+/* ================= STATE ================= */
+const sel={b:null,s:[],l:null,d:null};
+let tab='b', dayIdx=Math.max(0,(new Date().getDay()+6)%7);
+const START=82, GOAL=62;
+
+/* ================= RENDER ================= */
+function render(){
+  document.documentElement.lang=lang;
+  $$('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
+  const H=(n,txt)=>`<h2><span class="n">0${n}</span>${t(txt)}</h2>`;
+  const M=C.menu;
+  $('#app').innerHTML=`
+  <div class="hero"><h1>${t(C.hero.h)}</h1><p>${t(C.hero.p)}</p>
+    <div class="facts">${C.hero.facts.map(f=>`<span><b>${t(f[0])}</b> ${t(f[1])}</span>`).join('')}</div></div>
+
+  <section id="plan">${H(1,C.plan.h)}${t(C.plan.body)}</section>
+  <section id="safety">${H(2,C.safety.h)}${t(C.safety.body)}</section>
+
+  <section id="eat">${H(3,C.eat.h)}<p class="mute">${t(C.eat.intro)}</p>
+    ${C.eat.plate.map(r=>`<div class="phase"><b>${t(r[0])}</b><div><b>${t(r[1])}</b><br><span class="mute">${t(r[2])}</span></div></div>`).join('')}
+    <h3>${lang==='fr'?'Tes objectifs du jour':'Your daily targets'}</h3>
+    <dl>${C.eat.targets.map(r=>`<div><dt>${t(r[0])}</dt><dd>${t(r[1])}</dd></div>`).join('')}</dl>
+    ${t(C.eat.rules)}</section>
+
+  <section id="menu">${H(4,M.h)}<p class="mute">${t(M.intro)}</p>
+    <div class="tabs">${Object.keys(M.cats).map(k=>`<button data-tab="${k}" class="${k===tab?'on':''}">${t(M.cats[k])}</button>`).join('')}</div>
+    <div id="meals"></div>
+    <div class="total"><span><b id="tK">0</b> kcal</span><span><b id="tP">0</b> ${lang==='fr'?'g protéines':'g protein'}</span><span><b id="tC">0</b> ${lang==='fr'?'g glucides':'g carbs'}</span><span class="m" id="tM"></span></div>
+  </section>
+
+  <section id="train">${H(5,C.train.h)}<p class="mute">${t(C.train.intro)}</p>
+    ${C.train.phases.map(p=>`<div class="phase"><b>${t(p[0])}</b><div>${t(p[1])}</div></div>`).join('')}
+    <div class="days">${C.train.days.map((d,i)=>`<button data-day="${i}" class="${i===dayIdx?'on':''}">${t(d.d)}</button>`).join('')}</div>
+    <div id="day"></div>
+    <div style="margin-top:26px">${t(C.train.after)}</div></section>
+
+  <section id="rules">${H(6,C.rules.h)}
+    <div class="two"><div><h3>${lang==='fr'?'À faire':'Do'}</h3><ul class="pl yes">${t(C.rules.yes).map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div><h3>${lang==='fr'?'À éviter':'Don\'t'}</h3><ul class="pl no">${t(C.rules.no).map(x=>`<li>${x}</li>`).join('')}</ul></div></div></section>
+
+  <section id="track">${H(7,C.track.h)}<p class="mute">${t(C.track.intro)}</p>
+    <h3>${t(C.track.weigh)}</h3>
+    <div class="row"><input id="wIn" type="number" step="0.1" placeholder="80.4"><button class="btn" id="wAdd">${t(C.track.add)}</button></div>
+    <svg class="chart" id="chart" viewBox="0 0 500 190" preserveAspectRatio="none"></svg>
+    <p class="small mute" id="wInfo"></p><button class="btn ghost" id="wClear">${t(C.track.reset)}</button>
+    <h3>${t(C.track.habits)}</h3><div class="bar"><i id="cBar"></i></div><div id="checks"></div>
+    <button class="btn ghost" id="cClear">${t(C.track.newWeek)}</button></section>
+
+  <footer><span class="serif">${t(C.foot.big)}</span>${t(C.foot.small)}</footer>`;
+
+  $$('[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;renderMeals();$$('[data-tab]').forEach(x=>x.classList.toggle('on',x===b))});
+  $$('[data-day]').forEach(b=>b.onclick=()=>{dayIdx=+b.dataset.day;renderDay();$$('[data-day]').forEach(x=>x.classList.toggle('on',x===b))});
+  $('#wAdd').onclick=()=>{const v=parseFloat($('#wIn').value);if(!(v>30&&v<200))return;const w=store.get('weights',[]);w.push(v);store.set('weights',w);$('#wIn').value='';drawChart()};
+  $('#wClear').onclick=()=>{if(confirm(t(C.track.confirm))){store.set('weights',[]);drawChart()}};
+  $('#cClear').onclick=()=>{store.set('habits',[]);renderChecks()};
+  renderMeals();renderDay();drawChart();renderChecks();
 }
-function updateTotal(){
-  let k=0,p=0,c=0,n=0;
+
+function isSel(k,i){return k==='s'?sel.s.includes(i):sel[k]===i}
+function renderMeals(){
+  const items=C.menu.items[tab];
+  $('#meals').innerHTML=items.map((m,i)=>`<button class="meal ${isSel(tab,i)?'sel':''}" data-i="${i}"><i></i><div><b>${t(m[0])}</b><span>${t(m[1])}</span></div><em>${m[2]} kcal<br>${m[3]} g P · ${m[4]} g ${lang==='fr'?'G':'C'}</em></button>`).join('');
+  $$('.meal').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;
+    if(tab==='s'){const s=sel.s,j=s.indexOf(i);if(j>-1)s.splice(j,1);else{if(s.length>=2)s.shift();s.push(i)}}
+    else sel[tab]=sel[tab]===i?null:i;
+    renderMeals()});
+  total();
+}
+function total(){
+  let k=0,p=0,c=0,n=0;const I=C.menu.items;
   const add=m=>{k+=m[2];p+=m[3];c+=m[4];n++};
-  ['Breakfast','Lunch','Dinner'].forEach(s=>{if(state[s]!==null)add(MEALS[s][state[s]])});
-  state.Snack.forEach(i=>add(MEALS.Snack[i]));
-  $('#tK').textContent=k;$('#tP').textContent=p+' g';$('#tC').textContent=c+' g';
-  let msg='Pick a breakfast, two snacks, a lunch and a dinner.';
-  if(n===5){msg=k<1300?'A bit low — add a snack or a bigger portion of veg/protein.':k>1550?'A little above target — trim a snack or carb portion.':'Right on target. Nice day. ✨'}
-  else if(n>0){msg=`${5-n} more meal${5-n>1?'s':''} to pick.`}
-  $('#tM').textContent=msg;
+  ['b','l','d'].forEach(s=>{if(sel[s]!==null)add(I[s][sel[s]])});
+  sel.s.forEach(i=>add(I.s[i]));
+  $('#tK').textContent=k;$('#tP').textContent=p;$('#tC').textContent=c;
+  const m=C.menu.msg;
+  $('#tM').textContent=t(n===5?(k<1300?m.low:k>1550?m.high:m.ok):m.none);
 }
-
-/* ---------- Training ---------- */
-const WARM='Warm-up: 5–10 min easy cardio + arm circles, hip circles, bodyweight squats.';
-const EX=(a)=>a.map(x=>`<div class="ex"><b>${x[0]}</b><span>${x[1]}</span><em>${x[2]}</em></div>`).join('');
-const PLAN=[
- {d:'Mon',t:'Strength A',s:'Lower body &amp; core · 45 min',x:[
-  ['Goblet squat','3 × 10–15','Hold one dumbbell at chest. Sit back and down, chest tall.'],
-  ['Leg press','3 × 10–15','Feet shoulder-width, never lock knees.'],
-  ['Romanian deadlift (dumbbells)','3 × 10–12','Hinge at hips, soft knees, flat back.'],
-  ['Glute bridge / hip thrust','3 × 12–15','Squeeze glutes at the top for 1 second.'],
-  ['Walking lunges','2–3 × 10 per leg','Short steps, upright torso.'],
-  ['Plank','3 × 20–40 sec','Straight line from head to heels.'],
-  ['Finish: easy cardio','15–20 min','Bike or incline walk, conversation pace.']]},
- {d:'Tue',t:'Cardio · Steady',s:'Fat-burning zone · 45–60 min',x:[
-  ['Incline treadmill walk','45–60 min','8–12% incline, 5.0–6.0 km/h. You can talk but not sing.'],
-  ['Heart-rate target','~60–70% max','Roughly 115–135 bpm. Check glucose at 30 min if going long.'],
-  ['Stretch','5–10 min','Calves, hamstrings, hips, chest.']]},
- {d:'Wed',t:'Strength B',s:'Upper body &amp; core · 45 min',x:[
-  ['Lat pulldown','3 × 10–12','Pull to upper chest, squeeze shoulder blades.'],
-  ['Seated cable row','3 × 10–12','Chest up, no swinging.'],
-  ['Chest press machine','3 × 10–12','Smooth, controlled tempo.'],
-  ['Dumbbell shoulder press','3 × 10','Light weight, ribs down.'],
-  ['Biceps curl + triceps pushdown','2–3 × 12 each','Superset to save time.'],
-  ['Dead bug','3 × 10 per side','Lower back flat on the floor.'],
-  ['Finish: easy cardio','15–20 min','Elliptical or bike.']]},
- {d:'Thu',t:'Cardio · Intervals',s:'Weeks 1–4 easy · weeks 5+ intervals · 40 min',x:[
-  ['Warm-up','5 min','Easy pace.'],
-  ['Intervals (bike or elliptical)','8 × (1 min hard + 2 min easy)','Weeks 1–4: 5 rounds, 30 s hard + 90 s easy. Hard = breathless but controlled.'],
-  ['Cool-down','5 min','Slow down and bring heart rate down.']]},
- {d:'Fri',t:'Strength C',s:'Full body · 45 min',x:[
-  ['Step-ups','3 × 10 per leg','Knee tracks over toes.'],
-  ['Incline dumbbell press','3 × 10–12','Bench at 30°.'],
-  ['One-arm dumbbell row','3 × 12 per side','Back flat, pull elbow to hip.'],
-  ['Cable pull-through or kettlebell deadlift','3 × 12','Hips back, glutes squeeze.'],
-  ['Lateral raise','2–3 × 12–15','Very light. Lead with elbows.'],
-  ['Pallof press','3 × 10 per side','Resist rotation, core tight.'],
-  ['Finish: easy cardio','15–20 min','Incline walk.']]},
- {d:'Sat',t:'Long Cardio',s:'Your calorie-burn day · 60–75 min',x:[
-  ['Choose one or mix','60–75 min','Incline walk, bike, elliptical or stair-climber at a steady pace. Weeks 1–4 build up from 45 min.'],
-  ['Hydration &amp; glucose','—','Check sugar every 30–40 min. Carry fast carbs.'],
-  ['Stretch &amp; foam roll','10 min','Hips, quads, calves, back.']]},
- {d:'Sun',t:'Active Recovery',s:'Rest your muscles · 30–40 min',x:[
-  ['Easy walk outdoors','30–40 min','Fresh air, no pressure.'],
-  ['Mobility / gentle yoga','10–15 min','Hips, shoulders, spine.'],
-  ['Plan &amp; prep','—','Pick next week’s meals, prep proteins, shop.']]}
-];
-const days=$('#days'), panel=$('#panel');
-let dayIdx=Math.max(0,(new Date().getDay()+6)%7);
-function renderDays(){
-  days.innerHTML=PLAN.map((p,i)=>`<button class="day ${i===dayIdx?'on':''}" data-i="${i}">${p.d}<small>${p.t}</small></button>`).join('');
-  $$('.day',days).forEach(b=>b.onclick=()=>{dayIdx=+b.dataset.i;renderDays()});
-  const p=PLAN[dayIdx];
-  panel.innerHTML=`<h3>${p.t}</h3><p>${p.s}</p><div class="mini" style="color:#8b8b95;margin-bottom:6px">${WARM}</div>${EX(p.x)}`;
+function renderDay(){
+  const d=C.train.days[dayIdx];
+  $('#day').innerHTML=`<h3>${t(d.n)}</h3><p class="small mute">${t(C.train.warm)}</p>`+d.x.map(x=>`<div class="ex"><b>${t(x[0])}</b><span>${typeof x[1]==='string'?x[1]:t(x[1])}</span><em>${t(x[2])}</em></div>`).join('');
 }
-
-/* ---------- Tracker ---------- */
-const START=82;
 function drawChart(){
-  const w=store.get('weights',[]), svg=$('#chart');
+  const w=store.get('weights',[]),svg=$('#chart');
   const pts=[{x:0,y:START},...w.map((v,i)=>({x:i+1,y:v}))];
-  const W=500,H=210,pad=24, maxX=Math.max(12,pts.length-1);
-  const ys=pts.map(p=>p.y), lo=Math.min(60,...ys)-1, hi=Math.max(START,...ys)+1;
-  const X=x=>pad+x/maxX*(W-pad*2), Y=y=>pad+(hi-y)/(hi-lo)*(H-pad*2);
+  const W=500,H=190,pad=24,maxX=Math.max(12,pts.length-1);
+  const ys=pts.map(p=>p.y),lo=Math.min(GOAL,...ys)-1,hi=Math.max(START,...ys)+1;
+  const X=x=>pad+x/maxX*(W-pad*2),Y=y=>pad+(hi-y)/(hi-lo)*(H-pad*2);
   let g='';
-  for(let i=0;i<=12;i+=4)g+=`<text x="${X(i)}" y="${H-4}" font-size="11" fill="#999" text-anchor="middle">wk ${i}</text>`;
-  g+=`<line x1="${pad}" x2="${W-pad}" y1="${Y(62)}" y2="${Y(62)}" stroke="#a66bff" stroke-dasharray="4 4" opacity=".6"/><text x="${W-pad}" y="${Y(62)-5}" font-size="11" fill="#a66bff" text-anchor="end">goal 62 kg</text>`;
-  g+=`<path d="M${pts.map(p=>X(p.x)+','+Y(p.y)).join('L')}" fill="none" stroke="#ff7a59" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
-  g+=pts.map(p=>`<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="4.5" fill="#fff" stroke="#ff7a59" stroke-width="2.5"/>`).join('');
+  for(let i=0;i<=12;i+=4)g+=`<text x="${X(i)}" y="${H-4}" font-size="11" fill="#6f685d" text-anchor="middle">${t(C.track.wk)} ${i}</text>`;
+  g+=`<line x1="${pad}" x2="${W-pad}" y1="${Y(GOAL)}" y2="${Y(GOAL)}" stroke="#1c1a17" stroke-dasharray="3 5" opacity=".5"/><text x="${W-pad}" y="${Y(GOAL)-5}" font-size="11" fill="#1c1a17" text-anchor="end">${t(C.track.goal)} ${GOAL} kg</text>`;
+  g+=`<path d="M${pts.map(p=>X(p.x)+','+Y(p.y)).join('L')}" fill="none" stroke="#b8412a" stroke-width="2.5"/>`;
+  g+=pts.map(p=>`<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="4" fill="#f3eee4" stroke="#b8412a" stroke-width="2"/>`).join('');
   svg.innerHTML=g;
-  const last=w.length?w[w.length-1]:START, lost=(START-last).toFixed(1);
-  $('#wInfo').textContent=w.length?`Now ${last} kg · ${lost} kg down · ${(last-62).toFixed(1)} kg to your goal weight.`:'Start weight: 82 kg. Log your first weigh-in above.';
+  const last=w.length?w[w.length-1]:START;
+  $('#wInfo').textContent=w.length?(lang==='fr'?`Maintenant ${last} kg · ${(START-last).toFixed(1)} kg en moins · ${(last-GOAL).toFixed(1)} kg avant l'objectif.`:`Now ${last} kg · ${(START-last).toFixed(1)} kg down · ${(last-GOAL).toFixed(1)} kg to go.`):t(C.track.empty);
 }
-$('#wAdd').onclick=()=>{const v=parseFloat($('#wIn').value);if(!(v>30&&v<200))return;const w=store.get('weights',[]);w.push(v);store.set('weights',w);$('#wIn').value='';drawChart()};
-$('#wClear').onclick=()=>{if(confirm('Reset all weigh-ins?')){store.set('weights',[]);drawChart()}};
-
-const HABITS=['Hit protein target on 6+ days','Strength sessions done (3)','Cardio sessions done (3)','10k steps on most days','2.5 L water daily','Checked glucose around workouts','7+ hours sleep most nights','Weekly weigh-in logged'];
 function renderChecks(){
   const s=store.get('habits',[]);
-  $('#checks').innerHTML=HABITS.map((h,i)=>`<label><input type="checkbox" data-i="${i}" ${s.includes(i)?'checked':''}> ${h}</label>`).join('');
-  $$('#checks input').forEach(c=>c.onchange=()=>{const cur=store.get('habits',[]);const i=+c.dataset.i;const n=c.checked?[...cur,i]:cur.filter(x=>x!==i);store.set('habits',n);bar()});
+  $('#checks').innerHTML=t(C.track.hab).map((h,i)=>`<label class="chk"><input type="checkbox" data-i="${i}" ${s.includes(i)?'checked':''}> ${h}</label>`).join('');
+  $$('#checks input').forEach(c=>c.onchange=()=>{const cur=store.get('habits',[]),i=+c.dataset.i;store.set('habits',c.checked?[...cur,i]:cur.filter(x=>x!==i));bar()});
   bar();
 }
-function bar(){$('#cBar').style.width=(store.get('habits',[]).length/HABITS.length*100)+'%'}
-$('#cClear').onclick=()=>{store.set('habits',[]);renderChecks()};
+function bar(){$('#cBar').style.width=(store.get('habits',[]).length/C.track.hab.fr.length*100)+'%'}
 
-renderMenu();updateTotal();renderDays();drawChart();renderChecks();
+$$('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;store.set('lang',lang);render()});
+render();
+
+/* ================= INTRO ================= */
+(function(){
+  const intro=$('#intro'),wave=$('#wave'),hello=$('#hello');
+  for(let i=0;i<47;i++){const b=document.createElement('i');const d=Math.abs(i-23);b.style.setProperty('--h',(14+Math.random()*26+(23-d)*1.6)+'px');b.style.animationDelay=(i*.04)+'s';b.style.animationDuration=(.8+Math.random()*.7)+'s';wave.appendChild(b)}
+  let delay=.3;
+  const add=(txt,cls)=>[...txt].forEach(ch=>{const s=document.createElement('span');s.textContent=ch===' '?' ':ch;if(cls)s.className=cls;s.style.animationDelay=(delay+=.06)+'s';hello.appendChild(s)});
+  add('Hello ');add('Oumaima','nm');
+  let closed=false;
+  const close=()=>{if(closed)return;closed=true;intro.classList.add('done');document.body.style.overflow='';setTimeout(()=>intro.remove(),900)};
+  document.body.style.overflow='hidden';
+  $('#skip').onclick=close;setTimeout(close,3600);
+})();
 </script>
 </body>
 </html>
