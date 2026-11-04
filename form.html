@@ -210,9 +210,9 @@ function summary(){
     c[1].forEach((x,xi)=>{const v=fd[ci+'-'+xi];if(v)g[v].push(t(x))});
     if(g[1].length||g[2].length||g[3].length){
      out.push(t(c[0])+':');
-     if(g[1].length)out.push('  ♥ '+t(UI.l1)+': '+g[1].join(', '));
+     if(g[1].length)out.push('  + '+t(UI.l1)+': '+g[1].join(', '));
      if(g[2].length)out.push('  ~ '+t(UI.l2)+': '+g[2].join(', '));
-     if(g[3].length)out.push('  ✕ '+t(UI.l3)+': '+g[3].join(', '));
+     if(g[3].length)out.push('  x '+t(UI.l3)+': '+g[3].join(', '));
     }
    });
   }
