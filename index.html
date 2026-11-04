@@ -51,6 +51,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:5
 .links::-webkit-scrollbar{display:none}
 .links a{padding:7px 12px;font-size:14px;color:var(--muted);text-decoration:none;border-radius:99px;white-space:nowrap}
 .links a:hover,.links a.on{background:#efede8;color:var(--ink)}
+.qlink{white-space:nowrap;text-decoration:none;font-size:14px;font-weight:600;color:#fff;background:linear-gradient(90deg,var(--a),var(--b));padding:7px 14px;border-radius:99px;margin-right:8px}
+.qcta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-top:22px;padding:22px 24px;border-radius:var(--r);background:linear-gradient(120deg,#ffe9e2,#efe6ff);border:1px solid var(--line)}
+.qcta p{margin:0;font-size:15px;max-width:520px}
+.qcta a{white-space:nowrap;text-decoration:none;background:var(--ink);color:#fff;font-weight:600;padding:12px 20px;border-radius:99px;font-size:14.5px}
 section[id]{scroll-margin-top:58px}
 /* hero */
 .hero{padding:80px 0 20px;text-align:center}
@@ -161,6 +165,7 @@ footer b{display:block;font:400 34px "Instrument Serif",serif;color:var(--ink);m
   .pie{width:200px}
   .logo span{display:none}
   .links a{padding:7px 9px;font-size:13px}
+  .qlink{font-size:13px;padding:6px 11px}
   .vgrid{grid-template-columns:repeat(2,1fr)}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#hello span{opacity:1;transform:none;filter:none}}
@@ -178,6 +183,7 @@ footer b{display:block;font:400 34px "Instrument Serif",serif;color:var(--ink);m
 <nav><div class="wrap">
   <div class="logo"><b></b> <span>Oumaima</span></div>
   <div class="links" id="links"></div>
+  <a class="qlink" id="qlink" href="form.html"></a>
   <div class="lang"><button data-l="fr">FR</button><button data-l="en">EN</button></div>
 </div></nav>
 
@@ -368,7 +374,8 @@ function render(){
   <section id="meals-s"><div class="wrap">${head(M,1)}
     <div class="chips">${Object.keys(M.cats).map(k=>`<button class="chip ${k===tab?'on':''}" data-tab="${k}">${t(M.cats[k])}</button>`).join('')}</div>
     <div class="meals" id="meals"></div>
-    <div class="total"><div>kcal<b id="tK">0</b></div><div>${lang==='fr'?'Protéines':'Protein'}<b id="tP">0 g</b></div><div>${lang==='fr'?'Glucides':'Carbs'}<b id="tC">0 g</b></div><div class="msg" id="tM"></div></div></div></section>
+    <div class="total"><div>kcal<b id="tK">0</b></div><div>${lang==='fr'?'Protéines':'Protein'}<b id="tP">0 g</b></div><div>${lang==='fr'?'Glucides':'Carbs'}<b id="tC">0 g</b></div><div class="msg" id="tM"></div></div>
+    <div class="qcta"><p>${lang==='fr'?'Dis-nous ce que tu aimes et ce que tu ne manges pas, et on prépare un plan encore plus fait pour toi.':'Tell us what you like and what you don\'t eat, and we\'ll build a plan made even more for you.'}</p><a href="form.html">${lang==='fr'?'Remplir le questionnaire →':'Fill in the questionnaire →'}</a></div></div></section>
 
   <section class="dark" id="train"><div class="wrap">${head(T,1)}
     <div class="grid g3" style="margin-bottom:28px">${T.phases.map(p=>`<div class="card"><h3>${t(p[0])}</h3><p>${t(p[1])}</p></div>`).join('')}</div>
@@ -395,6 +402,7 @@ function render(){
   renderMeals();renderDay();drawChart();
   $$('.vbtn').forEach(b=>b.onclick=()=>openVideo(b.dataset.v));
   $('#links').innerHTML=NAV.map(n=>`<a href="#${n[0]}">${t(n[1])}</a>`).join('');
+  $('#qlink').textContent=lang==='fr'?'Questionnaire':'Questionnaire';
   spy();
 }
 

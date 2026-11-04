@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oumaima · Questionnaire alimentaire</title>
+<meta name="description" content="Questionnaire alimentaire pour préparer le prochain plan d'Oumaima.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fafaf8;--ink:#0b0b0c;--muted:#6b6b72;--line:#e8e6e1;--card:#fff;--a:#ff7a59;--b:#a66bff;--c:#3dd6c6;--ok:#18a367;--mid:#e6a700;--warn:#e5484d;--r:22px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(250,250,248,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:12px}
+.back{font-weight:600;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:8px;font-size:15px}
+.back b{width:22px;height:22px;border-radius:50%;background:conic-gradient(var(--a),var(--b),var(--c),var(--a))}
+.lang button{padding:6px 12px;font-size:14px;color:var(--muted);border-radius:99px}
+.lang button.on{background:var(--ink);color:#fff}
+
+.hero{padding:64px 0 24px}
+.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:22px;height:2px;background:linear-gradient(90deg,var(--a),var(--b))}
+.hero h1{font-size:clamp(38px,6.5vw,64px);letter-spacing:-.03em;line-height:1.02;margin-bottom:16px}
+.hero h1 em{font-family:"Instrument Serif",serif;font-weight:400}
+.hero p{color:var(--muted);font-size:18px;max-width:600px}
+.progress{height:6px;background:#efede8;border-radius:9px;margin:28px 0 6px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--b));transition:width .3s}
+.mini{font-size:13.5px;color:var(--muted)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px;margin-top:18px}
+.card h2{font-size:24px;letter-spacing:-.02em;margin-bottom:4px;display:flex;align-items:center;gap:12px}
+.card h2 span{font:600 12px Inter;color:#fff;background:var(--ink);border-radius:99px;width:26px;height:26px;display:grid;place-items:center;flex:none}
+.card>p{color:var(--muted);font-size:14.5px;margin-bottom:16px}
+.f{margin-top:16px}
+.f label{display:block;font-weight:600;font-size:14.5px;margin-bottom:6px}
+.f small{font-weight:400;color:var(--muted)}
+input[type=text],input[type=number],input[type=time],select,textarea{width:100%;font:inherit;font-size:15px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:#fcfcfa;color:var(--ink)}
+textarea{min-height:76px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--b);outline-offset:1px;border-color:transparent}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 15px;font-size:14px;font-weight:500}
+.opt.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13.5px;color:var(--muted);margin-bottom:6px;background:#f6f4ef;border-radius:14px;padding:12px 14px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.cat{margin-top:20px}
+.cat h3{font-size:15px;margin-bottom:10px}
+.foods{display:flex;flex-wrap:wrap;gap:8px}
+.food{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 14px;font-size:14px;font-weight:500;transition:.15s}
+.food[data-s="1"]{background:#e3f6ec;border-color:var(--ok);color:#0b5c37}
+.food[data-s="2"]{background:#fff4d6;border-color:var(--mid);color:#6b4d00}
+.food[data-s="3"]{background:#fde8e8;border-color:var(--warn);color:#8a1c1f;text-decoration:line-through}
+.food[data-s="1"]::before{content:"♥ "}
+.food[data-s="2"]::before{content:"~ "}
+.food[data-s="3"]::before{content:"✕ "}
+
+.send{background:var(--ink);color:#fff;border-radius:var(--r);padding:28px;margin-top:22px}
+.send h2{font-size:26px;letter-spacing:-.02em;margin-bottom:6px}
+.send p{color:#a5a5ae;font-size:15px;margin-bottom:18px}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{border-radius:99px;padding:13px 22px;font-weight:600;font-size:15px;text-decoration:none;display:inline-block}
+.btn.wa{background:#25d366;color:#06301a}
+.btn.w{background:#fff;color:var(--ink)}
+.btn.g{border:1px solid #3a3a40;color:#fff}
+pre{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,monospace;background:#141416;border:1px solid #26262a;border-radius:14px;padding:16px;margin-top:18px;color:#d6d6dc;max-height:320px;overflow:auto;display:none}
+pre.on{display:block}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:99px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:60}
+.toast.on{opacity:1;transform:translateX(-50%)}
+footer{padding:40px 0 60px;text-align:center;color:var(--muted);font-size:14px}
+
+@media(max-width:640px){.row{grid-template-columns:1fr}.card{padding:20px}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="back" href="index.html"><b></b><span id="backTxt"></span></a>
+  <div class="lang"><button data-l="fr">FR</button><button data-l="en">EN</button></div>
+</div></nav>
+
+<main class="wrap" id="app"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const L=(fr,en)=>({fr,en});
+let lang=store.get('lang','fr'); if(lang!=='fr'&&lang!=='en')lang='fr';
+const t=x=>x[lang];
+const KEY='oumaimaForm';
+let data=store.get(KEY,{});
+
+/* ================= CONTENT ================= */
+const UI={
+ back:L('← Programme','← Program'),
+ kicker:L('Questionnaire','Questionnaire'),
+ h:L('Ce que tu <em>manges.</em>','What you <em>eat.</em>'),
+ p:L('Réponds à ton rythme : tes réponses sont enregistrées sur ton téléphone. À la fin, envoie-les en un clic pour qu\'on prépare ton prochain plan, avec les aliments que tu aimes vraiment.',
+     'Answer at your own pace: your answers are saved on your phone. At the end, send them in one tap so we can build your next plan around the foods you actually like.'),
+ done:L('rempli','complete'),
+ legend:L('Touche un aliment pour changer :','Tap a food to change it:'),
+ l0:L('pas répondu','not answered'), l1:L('j\'aime','I like it'), l2:L('parfois / ça va','sometimes / okay'), l3:L('jamais / je n\'aime pas','never / I don\'t like it'),
+ sendH:L('Envoyer mes réponses','Send my answers'),
+ sendP:L('Choisis comment envoyer. Rien n\'est envoyé automatiquement.','Choose how to send them. Nothing is sent automatically.'),
+ wa:L('Envoyer sur WhatsApp','Send on WhatsApp'), mail:L('Envoyer par e-mail','Send by email'), copy:L('Copier le texte','Copy the text'),
+ preview:L('Voir le résumé','Show summary'), reset:L('Tout effacer','Clear everything'),
+ copied:L('Copié ✓','Copied ✓'), saved:L('Enregistré ✓','Saved ✓'),
+ confirm:L('Effacer toutes tes réponses ?','Clear all your answers?'),
+ subject:L('Questionnaire alimentaire – Oumaima','Food questionnaire – Oumaima'),
+ foot:L('Merci Oumaima. Le prochain plan sera fait pour toi.','Thank you Oumaima. Your next plan will be made for you.')
+};
+
+// field types: text, num, time, area, one (single choice), many (multi choice)
+const SECTIONS=[
+ {h:L('Toi','About you'),p:L('Pour ajuster les portions.','To adjust the portions.'),f:[
+  ['age','num',L('Âge','Age')],
+  ['weight','num',L('Poids actuel (kg)','Current weight (kg)')],
+  ['wake','time',L('Heure de réveil','Wake-up time')],
+  ['sleep','time',L('Heure de coucher','Bedtime')],
+  ['work','text',L('Travail / études : horaires','Work / studies: hours'),L('ex. 9h–17h, du lundi au vendredi','e.g. 9am–5pm, Monday to Friday')],
+  ['gym','one',L('Salle de sport en ce moment','Gym right now'),[L('Pas encore','Not yet'),L('1–2× / semaine','1–2× / week'),L('3–4× / semaine','3–4× / week'),L('5× ou plus','5× or more')]]]},
+ {h:L('Diabète','Diabetes'),p:L('Pour que le plan soit sûr pour ta glycémie.','So the plan is safe for your blood sugar.'),f:[
+  ['dtype','one',L('Type de diabète','Diabetes type'),[L('Type 1','Type 1'),L('Type 2','Type 2'),L('Je ne sais pas','I don\'t know')]],
+  ['treat','many',L('Traitement','Treatment'),[L('Insuline','Insulin'),L('Metformine','Metformin'),L('Autres comprimés','Other tablets'),L('Aucun','None')]],
+  ['meds','text',L('Noms et doses des médicaments','Medication names and doses'),L('facultatif','optional')],
+  ['fasting','text',L('Glycémie à jeun habituelle','Usual fasting blood sugar'),L('ex. 1,10 g/L','e.g. 110 mg/dL')],
+  ['lows','one',L('Hypoglycémies','Low blood sugar'),[L('Jamais','Never'),L('1× par mois','1× a month'),L('1× par semaine','1× a week'),L('Plusieurs fois / semaine','Several times a week')]],
+  ['lowsWhen','text',L('Quand ça arrive en général ?','When does it usually happen?'),L('ex. avant le déjeuner, après le sport','e.g. before lunch, after exercise')],
+  ['doctor','area',L('Ce que ton médecin t\'a conseillé','What your doctor told you'),L('facultatif','optional')]]},
+ {h:L('Une journée normale','A normal day'),p:L('Écris ce que tu manges vraiment, pas ce que tu « devrais » manger. Avec les quantités si tu peux.','Write what you really eat, not what you "should" eat. With amounts if you can.'),f:[
+  ['meals','one',L('Repas par jour','Meals a day'),[L('1','1'),L('2','2'),L('3','3'),L('4','4'),L('5 ou plus','5 or more')]],
+  ['breakfast','area',L('Petit-déjeuner','Breakfast'),L('ex. thé sucré + msemen + fromage','e.g. sweet tea + msemen + cheese')],
+  ['lunch','area',L('Déjeuner','Lunch')],
+  ['snack','area',L('Goûter / collations','Afternoon snack / snacks')],
+  ['dinner','area',L('Dîner','Dinner')],
+  ['night','area',L('Grignotage le soir ou la nuit ?','Snacking in the evening or at night?')],
+  ['drinks','area',L('Boissons dans la journée','Drinks during the day'),L('thé, café, jus, sodas… et combien de sucre','tea, coffee, juice, soda… and how much sugar')],
+  ['water','one',L('Eau par jour','Water a day'),[L('Moins de 1 L','Under 1 L'),L('1–1,5 L','1–1.5 L'),L('1,5–2 L','1.5–2 L'),L('Plus de 2 L','Over 2 L')]]]},
+ {h:L('Les aliments','Foods'),p:'',foods:true},
+ {h:L('Restrictions','Restrictions'),p:L('Tout ce qu\'il faut éviter.','Anything to avoid.'),f:[
+  ['restrict','many',L('Ce qui s\'applique à toi','What applies to you'),[L('Intolérance au lactose','Lactose intolerance'),L('Sans gluten','Gluten-free'),L('Végétarienne','Vegetarian'),L('Problèmes de digestion','Digestion problems'),L('Aucune','None')]],
+  ['allergies','area',L('Allergies ou autres restrictions','Allergies or other restrictions')]]},
+ {h:L('Habitudes','Habits'),p:L('Pour que le plan soit facile à suivre.','So the plan is easy to follow.'),f:[
+  ['cook','one',L('Qui cuisine ?','Who cooks?'),[L('Moi','Me'),L('Ma famille','My family'),L('Les deux','Both'),L('Je mange souvent dehors','I often eat out')]],
+  ['time','one',L('Temps pour cuisiner par jour','Time to cook per day'),[L('Moins de 15 min','Under 15 min'),L('15–30 min','15–30 min'),L('30–60 min','30–60 min'),L('Plus d\'1 h','Over 1 h')]],
+  ['out','one',L('Repas dehors ou livrés','Meals out or delivered'),[L('Jamais','Never'),L('1× / semaine','1× / week'),L('2–3× / semaine','2–3× / week'),L('Presque tous les jours','Almost every day')]],
+  ['sweet','one',L('Envies de sucré','Sweet cravings'),[L('Rarement','Rarely'),L('Parfois','Sometimes'),L('Souvent','Often'),L('Tous les jours','Every day')]],
+  ['cravingTime','text',L('À quel moment tu as le plus faim ou d\'envies ?','When are you hungriest or have the most cravings?')],
+  ['budget','one',L('Budget courses','Grocery budget'),[L('Serré','Tight'),L('Moyen','Medium'),L('Confortable','Comfortable')]]]},
+ {h:L('Pour finir','To finish'),p:'',f:[
+  ['keep','area',L('Plats que tu ne veux surtout pas abandonner','Dishes you really don\'t want to give up')],
+  ['hard','area',L('Qu\'est-ce qui a été le plus dur dans le plan actuel ?','What has been hardest in the current plan?')],
+  ['notes','area',L('Autre chose à nous dire ?','Anything else to tell us?')]]}
+];
+
+const FOODS=[
+ [L('Protéines','Protein'),[L('Poulet','Chicken'),L('Dinde','Turkey'),L('Bœuf','Beef'),L('Agneau','Lamb'),L('Kefta','Kefta'),L('Poisson blanc','White fish'),L('Saumon','Salmon'),L('Sardines','Sardines'),L('Thon','Tuna'),L('Crevettes','Shrimp'),L('Œufs','Eggs'),L('Lentilles','Lentils'),L('Pois chiches','Chickpeas'),L('Haricots blancs','White beans'),L('Fèves','Fava beans')]],
+ [L('Produits laitiers','Dairy'),[L('Lait','Milk'),L('Yaourt nature','Plain yogurt'),L('Lben / Raïb','Lben / Raib'),L('Fromage blanc / skyr','Fromage blanc / skyr'),L('Fromage','Cheese'),L('Cottage cheese','Cottage cheese'),L('Lait d\'amande','Almond milk')]],
+ [L('Féculents','Carbs'),[L('Pain blanc','White bread'),L('Pain complet','Whole-grain bread'),L('Pain d\'orge','Barley bread'),L('Msemen / Baghrir','Msemen / Baghrir'),L('Couscous','Couscous'),L('Riz','Rice'),L('Pâtes','Pasta'),L('Pommes de terre','Potatoes'),L('Patate douce','Sweet potato'),L('Flocons d\'avoine','Oats'),L('Quinoa','Quinoa'),L('Boulgour','Bulgur')]],
+ [L('Légumes','Vegetables'),[L('Courgette','Courgette'),L('Carotte','Carrot'),L('Tomate','Tomato'),L('Concombre','Cucumber'),L('Poivron','Pepper'),L('Aubergine','Aubergine'),L('Brocoli','Broccoli'),L('Chou-fleur','Cauliflower'),L('Épinards','Spinach'),L('Haricots verts','Green beans'),L('Salade verte','Lettuce'),L('Champignons','Mushrooms'),L('Betterave','Beetroot'),L('Oignon','Onion')]],
+ [L('Fruits','Fruit'),[L('Pomme','Apple'),L('Poire','Pear'),L('Orange','Orange'),L('Banane','Banana'),L('Fraises','Strawberries'),L('Fruits rouges','Berries'),L('Raisin','Grapes'),L('Pastèque','Watermelon'),L('Melon','Melon'),L('Kiwi','Kiwi'),L('Dattes','Dates'),L('Figues','Figs'),L('Grenade','Pomegranate'),L('Mangue','Mango')]],
+ [L('Matières grasses & extras','Fats & extras'),[L('Huile d\'olive','Olive oil'),L('Olives','Olives'),L('Amandes','Almonds'),L('Noix','Walnuts'),L('Cacahuètes','Peanuts'),L('Beurre de cacahuète','Peanut butter'),L('Amlou','Amlou'),L('Avocat','Avocado'),L('Beurre','Butter'),L('Chocolat noir','Dark chocolate')]],
+ [L('Boissons','Drinks'),[L('Thé à la menthe sucré','Sweet mint tea'),L('Thé sans sucre','Unsweetened tea'),L('Café','Coffee'),L('Jus de fruits','Fruit juice'),L('Sodas','Soda'),L('Soda zéro','Diet soda'),L('Eau gazeuse','Sparkling water')]],
+ [L('Plats','Dishes'),[L('Tajine','Tagine'),L('Harira','Harira'),L('Loubia','Loubia (beans)'),L('Bissara','Bissara'),L('Pastilla','Pastilla'),L('Salade marocaine','Moroccan salad'),L('Soupe de légumes','Vegetable soup'),L('Grillades','Grilled meat'),L('Pizza','Pizza'),L('Burger','Burger'),L('Shawarma / tacos','Shawarma / tacos')]]
+];
+
+/* ================= RENDER ================= */
+function field(f){
+ const [id,type,label,extra]=f, v=data[id];
+ const lab=`<label for="q_${id}">${t(label)}${type!=='one'&&type!=='many'&&extra?` <small>· ${t(extra)}</small>`:''}</label>`;
+ if(type==='one'||type==='many'){
+  const sel=type==='one'?[v]:(v||[]);
+  return `<div class="f">${lab}<div class="opts">${extra.map((o,i)=>`<button type="button" class="opt ${sel.includes(i)?'on':''}" data-q="${id}" data-t="${type}" data-i="${i}">${t(o)}</button>`).join('')}</div></div>`;
+ }
+ const ph=extra?` placeholder="${t(extra).replace(/"/g,'&quot;')}"`:'';
+ if(type==='area')return `<div class="f">${lab}<textarea id="q_${id}" data-q="${id}"${ph}>${esc(v||'')}</textarea></div>`;
+ const it={text:'text',num:'number',time:'time'}[type];
+ return `<div class="f">${lab}<input id="q_${id}" type="${it}" data-q="${id}" value="${esc(v||'')}"${type==='num'?' inputmode="decimal"':''}></div>`;
+}
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+function render(){
+ document.documentElement.lang=lang;
+ $$('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
+ $('#backTxt').textContent=t(UI.back);
+ const fd=data.foods||{};
+ $('#app').innerHTML=`
+ <header class="hero"><div class="kicker">${t(UI.kicker)}</div><h1>${t(UI.h)}</h1><p>${t(UI.p)}</p>
+  <div class="progress"><i id="prog"></i></div><div class="mini" id="progTxt"></div></header>
+ ${SECTIONS.map((s,n)=>`<div class="card"><h2><span>${n+1}</span>${t(s.h)}</h2>${s.p?`<p>${t(s.p)}</p>`:''}
+  ${s.foods?`<div class="legend">${t(UI.legend)} <span><i style="background:#e8e6e1"></i>${t(UI.l0)}</span><span><i style="background:var(--ok)"></i>${t(UI.l1)}</span><span><i style="background:var(--mid)"></i>${t(UI.l2)}</span><span><i style="background:var(--warn)"></i>${t(UI.l3)}</span></div>
+   ${FOODS.map((c,ci)=>`<div class="cat"><h3>${t(c[0])}</h3><div class="foods">${c[1].map((x,xi)=>`<button type="button" class="food" data-f="${ci}-${xi}" data-s="${fd[ci+'-'+xi]||0}">${t(x)}</button>`).join('')}</div></div>`).join('')}`
+   :s.f.map(field).join('')}</div>`).join('')}
+ <div class="send"><h2>${t(UI.sendH)}</h2><p>${t(UI.sendP)}</p>
+  <div class="btns"><a class="btn wa" id="wa" target="_blank" rel="noopener">${t(UI.wa)}</a><a class="btn w" id="mail">${t(UI.mail)}</a><button class="btn g" id="copy">${t(UI.copy)}</button><button class="btn g" id="prev">${t(UI.preview)}</button></div>
+  <pre id="sum"></pre>
+  <button class="btn g" id="reset" style="margin-top:14px;font-size:13px;padding:9px 16px;opacity:.7">${t(UI.reset)}</button></div>
+ <footer>${t(UI.foot)}</footer>`;
+ bind();update();
+}
+
+function bind(){
+ $$('input[data-q],textarea[data-q]').forEach(el=>el.oninput=()=>{data[el.dataset.q]=el.value;save()});
+ $$('.opt').forEach(b=>b.onclick=()=>{
+  const id=b.dataset.q,i=+b.dataset.i;
+  if(b.dataset.t==='one'){data[id]=data[id]===i?null:i;$$(`.opt[data-q="${id}"]`).forEach(x=>x.classList.toggle('on',+x.dataset.i===data[id]))}
+  else{const a=data[id]||[];data[id]=a.includes(i)?a.filter(x=>x!==i):[...a,i];b.classList.toggle('on')}
+  save()});
+ $$('.food').forEach(b=>b.onclick=()=>{const s=(+b.dataset.s+1)%4;b.dataset.s=s;data.foods=data.foods||{};if(s)data.foods[b.dataset.f]=s;else delete data.foods[b.dataset.f];save()});
+ $('#copy').onclick=async()=>{const txt=summary();try{await navigator.clipboard.writeText(txt);toast(t(UI.copied))}catch(e){$('#sum').classList.add('on');const r=document.createRange();r.selectNodeContents($('#sum'));getSelection().removeAllRanges();getSelection().addRange(r)}};
+ $('#prev').onclick=()=>$('#sum').classList.toggle('on');
+ $('#reset').onclick=()=>{if(confirm(t(UI.confirm))){data={};store.set(KEY,data);render()}};
+}
+
+let saveT;
+function save(){store.set(KEY,data);update();clearTimeout(saveT);saveT=setTimeout(()=>toast(t(UI.saved)),700)}
+function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),1400)}
+
+function update(){
+ const ids=SECTIONS.flatMap(s=>s.f?s.f.map(f=>f[0]):[]);
+ const filled=ids.filter(id=>{const v=data[id];return Array.isArray(v)?v.length:(v!==undefined&&v!==null&&v!=='')}).length;
+ const foodTotal=FOODS.reduce((n,c)=>n+c[1].length,0), foodDone=Object.keys(data.foods||{}).length;
+ const pct=Math.round((filled+Math.min(foodDone,foodTotal)/foodTotal*10)/(ids.length+10)*100);
+ $('#prog').style.width=pct+'%';$('#progTxt').textContent=`${pct}% ${t(UI.done)}`;
+ const txt=summary();
+ $('#sum').textContent=txt;
+ $('#wa').href='https://wa.me/?text='+encodeURIComponent(txt);
+ $('#mail').href='mailto:?subject='+encodeURIComponent(t(UI.subject))+'&body='+encodeURIComponent(txt);
+}
+
+function summary(){
+ const out=[t(UI.subject).toUpperCase(),''];
+ SECTIONS.forEach(s=>{
+  out.push('— '+t(s.h).toUpperCase()+' —');
+  if(s.foods){
+   const fd=data.foods||{};
+   FOODS.forEach((c,ci)=>{
+    const g={1:[],2:[],3:[]};
+    c[1].forEach((x,xi)=>{const v=fd[ci+'-'+xi];if(v)g[v].push(t(x))});
+    if(g[1].length||g[2].length||g[3].length){
+     out.push(t(c[0])+':');
+     if(g[1].length)out.push('  ♥ '+t(UI.l1)+': '+g[1].join(', '));
+     if(g[2].length)out.push('  ~ '+t(UI.l2)+': '+g[2].join(', '));
+     if(g[3].length)out.push('  ✕ '+t(UI.l3)+': '+g[3].join(', '));
+    }
+   });
+  }else s.f.forEach(([id,type,label,extra])=>{
+   const v=data[id];let a='';
+   if(type==='one')a=(v!==undefined&&v!==null)?t(extra[v]):'';
+   else if(type==='many')a=(v||[]).map(i=>t(extra[i])).join(', ');
+   else a=(v||'').trim();
+   out.push(t(label)+': '+(a||'—'));
+  });
+  out.push('');
+ });
+ return out.join('\n');
+}
+
+$$('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;store.set('lang',lang);render()});
+render();
+</script>
+</body>
+</html>
