@@ -102,8 +102,8 @@ const UI={
  back:L('← Programme','← Program'),
  kicker:L('Questionnaire','Questionnaire'),
  h:L('Ce que tu <em>manges.</em>','What you <em>eat.</em>'),
- p:L('Réponds à ton rythme : tes réponses sont enregistrées sur ton téléphone. À la fin, envoie-les en un clic pour qu\'on prépare ton prochain plan, avec les aliments que tu aimes vraiment.',
-     'Answer at your own pace: your answers are saved on your phone. At the end, send them in one tap so we can build your next plan around the foods you actually like.'),
+ p:L('Dis-nous ce que tu manges et ce que tu ne manges pas. Tes réponses sont enregistrées sur ton téléphone ; à la fin, envoie-les en un clic.',
+     'Tell us what you eat and what you don\'t. Your answers are saved on your phone; at the end, send them in one tap.'),
  done:L('rempli','complete'),
  legend:L('Touche un aliment pour changer :','Tap a food to change it:'),
  l0:L('pas répondu','not answered'), l1:L('j\'aime','I like it'), l2:L('parfois / ça va','sometimes / okay'), l3:L('jamais / je n\'aime pas','never / I don\'t like it'),
@@ -113,51 +113,14 @@ const UI={
  preview:L('Voir le résumé','Show summary'), reset:L('Tout effacer','Clear everything'),
  copied:L('Copié ✓','Copied ✓'), saved:L('Enregistré ✓','Saved ✓'),
  confirm:L('Effacer toutes tes réponses ?','Clear all your answers?'),
- subject:L('Questionnaire alimentaire – Oumaima','Food questionnaire – Oumaima'),
+ subject:L('Aliments – Oumaima','Foods – Oumaima'),
  foot:L('Merci Oumaima. Le prochain plan sera fait pour toi.','Thank you Oumaima. Your next plan will be made for you.')
 };
 
 // field types: text, num, time, area, one (single choice), many (multi choice)
 const SECTIONS=[
- {h:L('Toi','About you'),p:L('Pour ajuster les portions.','To adjust the portions.'),f:[
-  ['age','num',L('Âge','Age')],
-  ['weight','num',L('Poids actuel (kg)','Current weight (kg)')],
-  ['wake','time',L('Heure de réveil','Wake-up time')],
-  ['sleep','time',L('Heure de coucher','Bedtime')],
-  ['work','text',L('Travail / études : horaires','Work / studies: hours'),L('ex. 9h–17h, du lundi au vendredi','e.g. 9am–5pm, Monday to Friday')],
-  ['gym','one',L('Salle de sport en ce moment','Gym right now'),[L('Pas encore','Not yet'),L('1–2× / semaine','1–2× / week'),L('3–4× / semaine','3–4× / week'),L('5× ou plus','5× or more')]]]},
- {h:L('Diabète','Diabetes'),p:L('Pour que le plan soit sûr pour ta glycémie.','So the plan is safe for your blood sugar.'),f:[
-  ['dtype','one',L('Type de diabète','Diabetes type'),[L('Type 1','Type 1'),L('Type 2','Type 2'),L('Je ne sais pas','I don\'t know')]],
-  ['treat','many',L('Traitement','Treatment'),[L('Insuline','Insulin'),L('Metformine','Metformin'),L('Autres comprimés','Other tablets'),L('Aucun','None')]],
-  ['meds','text',L('Noms et doses des médicaments','Medication names and doses'),L('facultatif','optional')],
-  ['fasting','text',L('Glycémie à jeun habituelle','Usual fasting blood sugar'),L('ex. 1,10 g/L','e.g. 110 mg/dL')],
-  ['lows','one',L('Hypoglycémies','Low blood sugar'),[L('Jamais','Never'),L('1× par mois','1× a month'),L('1× par semaine','1× a week'),L('Plusieurs fois / semaine','Several times a week')]],
-  ['lowsWhen','text',L('Quand ça arrive en général ?','When does it usually happen?'),L('ex. avant le déjeuner, après le sport','e.g. before lunch, after exercise')],
-  ['doctor','area',L('Ce que ton médecin t\'a conseillé','What your doctor told you'),L('facultatif','optional')]]},
- {h:L('Une journée normale','A normal day'),p:L('Écris ce que tu manges vraiment, pas ce que tu « devrais » manger. Avec les quantités si tu peux.','Write what you really eat, not what you "should" eat. With amounts if you can.'),f:[
-  ['meals','one',L('Repas par jour','Meals a day'),[L('1','1'),L('2','2'),L('3','3'),L('4','4'),L('5 ou plus','5 or more')]],
-  ['breakfast','area',L('Petit-déjeuner','Breakfast'),L('ex. thé sucré + msemen + fromage','e.g. sweet tea + msemen + cheese')],
-  ['lunch','area',L('Déjeuner','Lunch')],
-  ['snack','area',L('Goûter / collations','Afternoon snack / snacks')],
-  ['dinner','area',L('Dîner','Dinner')],
-  ['night','area',L('Grignotage le soir ou la nuit ?','Snacking in the evening or at night?')],
-  ['drinks','area',L('Boissons dans la journée','Drinks during the day'),L('thé, café, jus, sodas… et combien de sucre','tea, coffee, juice, soda… and how much sugar')],
-  ['water','one',L('Eau par jour','Water a day'),[L('Moins de 1 L','Under 1 L'),L('1–1,5 L','1–1.5 L'),L('1,5–2 L','1.5–2 L'),L('Plus de 2 L','Over 2 L')]]]},
- {h:L('Les aliments','Foods'),p:'',foods:true},
- {h:L('Restrictions','Restrictions'),p:L('Tout ce qu\'il faut éviter.','Anything to avoid.'),f:[
-  ['restrict','many',L('Ce qui s\'applique à toi','What applies to you'),[L('Intolérance au lactose','Lactose intolerance'),L('Sans gluten','Gluten-free'),L('Végétarienne','Vegetarian'),L('Problèmes de digestion','Digestion problems'),L('Aucune','None')]],
-  ['allergies','area',L('Allergies ou autres restrictions','Allergies or other restrictions')]]},
- {h:L('Habitudes','Habits'),p:L('Pour que le plan soit facile à suivre.','So the plan is easy to follow.'),f:[
-  ['cook','one',L('Qui cuisine ?','Who cooks?'),[L('Moi','Me'),L('Ma famille','My family'),L('Les deux','Both'),L('Je mange souvent dehors','I often eat out')]],
-  ['time','one',L('Temps pour cuisiner par jour','Time to cook per day'),[L('Moins de 15 min','Under 15 min'),L('15–30 min','15–30 min'),L('30–60 min','30–60 min'),L('Plus d\'1 h','Over 1 h')]],
-  ['out','one',L('Repas dehors ou livrés','Meals out or delivered'),[L('Jamais','Never'),L('1× / semaine','1× / week'),L('2–3× / semaine','2–3× / week'),L('Presque tous les jours','Almost every day')]],
-  ['sweet','one',L('Envies de sucré','Sweet cravings'),[L('Rarement','Rarely'),L('Parfois','Sometimes'),L('Souvent','Often'),L('Tous les jours','Every day')]],
-  ['cravingTime','text',L('À quel moment tu as le plus faim ou d\'envies ?','When are you hungriest or have the most cravings?')],
-  ['budget','one',L('Budget courses','Grocery budget'),[L('Serré','Tight'),L('Moyen','Medium'),L('Confortable','Comfortable')]]]},
- {h:L('Pour finir','To finish'),p:'',f:[
-  ['keep','area',L('Plats que tu ne veux surtout pas abandonner','Dishes you really don\'t want to give up')],
-  ['hard','area',L('Qu\'est-ce qui a été le plus dur dans le plan actuel ?','What has been hardest in the current plan?')],
-  ['notes','area',L('Autre chose à nous dire ?','Anything else to tell us?')]]}
+ {h:L('Les aliments','Foods'),p:'',foods:true,f:[
+  ['other','area',L('Autres aliments','Other foods'),L('ce qui manque dans la liste : ce que tu aimes ou ne manges jamais','anything missing from the list: what you like or never eat')]]}
 ];
 
 const FOODS=[
@@ -194,9 +157,10 @@ function render(){
  $('#app').innerHTML=`
  <header class="hero"><div class="kicker">${t(UI.kicker)}</div><h1>${t(UI.h)}</h1><p>${t(UI.p)}</p>
   <div class="progress"><i id="prog"></i></div><div class="mini" id="progTxt"></div></header>
- ${SECTIONS.map((s,n)=>`<div class="card"><h2><span>${n+1}</span>${t(s.h)}</h2>${s.p?`<p>${t(s.p)}</p>`:''}
+ ${SECTIONS.map((s,n)=>`<div class="card"><h2>${t(s.h)}</h2>${s.p?`<p>${t(s.p)}</p>`:''}
   ${s.foods?`<div class="legend">${t(UI.legend)} <span><i style="background:#e8e6e1"></i>${t(UI.l0)}</span><span><i style="background:var(--ok)"></i>${t(UI.l1)}</span><span><i style="background:var(--mid)"></i>${t(UI.l2)}</span><span><i style="background:var(--warn)"></i>${t(UI.l3)}</span></div>
-   ${FOODS.map((c,ci)=>`<div class="cat"><h3>${t(c[0])}</h3><div class="foods">${c[1].map((x,xi)=>`<button type="button" class="food" data-f="${ci}-${xi}" data-s="${fd[ci+'-'+xi]||0}">${t(x)}</button>`).join('')}</div></div>`).join('')}`
+   ${FOODS.map((c,ci)=>`<div class="cat"><h3>${t(c[0])}</h3><div class="foods">${c[1].map((x,xi)=>`<button type="button" class="food" data-f="${ci}-${xi}" data-s="${fd[ci+'-'+xi]||0}">${t(x)}</button>`).join('')}</div></div>`).join('')}
+${s.f?s.f.map(field).join(''):''}`
    :s.f.map(field).join('')}</div>`).join('')}
  <div class="send"><h2>${t(UI.sendH)}</h2><p>${t(UI.sendP)}</p>
   <div class="btns"><a class="btn wa" id="wa" target="_blank" rel="noopener">${t(UI.wa)}</a><a class="btn w" id="mail">${t(UI.mail)}</a><button class="btn g" id="copy">${t(UI.copy)}</button><button class="btn g" id="prev">${t(UI.preview)}</button></div>
@@ -227,7 +191,7 @@ function update(){
  const ids=SECTIONS.flatMap(s=>s.f?s.f.map(f=>f[0]):[]);
  const filled=ids.filter(id=>{const v=data[id];return Array.isArray(v)?v.length:(v!==undefined&&v!==null&&v!=='')}).length;
  const foodTotal=FOODS.reduce((n,c)=>n+c[1].length,0), foodDone=Object.keys(data.foods||{}).length;
- const pct=Math.round((filled+Math.min(foodDone,foodTotal)/foodTotal*10)/(ids.length+10)*100);
+ const pct=Math.min(100,Math.round(foodDone/foodTotal*100));
  $('#prog').style.width=pct+'%';$('#progTxt').textContent=`${pct}% ${t(UI.done)}`;
  const txt=summary();
  $('#sum').textContent=txt;
@@ -251,7 +215,8 @@ function summary(){
      if(g[3].length)out.push('  ✕ '+t(UI.l3)+': '+g[3].join(', '));
     }
    });
-  }else s.f.forEach(([id,type,label,extra])=>{
+  }
+  if(s.f)s.f.forEach(([id,type,label,extra])=>{
    const v=data[id];let a='';
    if(type==='one')a=(v!==undefined&&v!==null)?t(extra[v]):'';
    else if(type==='many')a=(v||[]).map(i=>t(extra[i])).join(', ');
